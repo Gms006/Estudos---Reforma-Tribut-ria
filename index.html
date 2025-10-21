@@ -737,8 +737,9 @@ main {
     display: block !important;
   }
 
+  /* ── Correção PDF: compactação de seções para reduzir espaços vazios */
   .section-wrapper {
-    margin-bottom: 24pt !important;
+    margin-bottom: 14pt !important;
   }
 
   h1, h2, h3, h4, h5, h6,
@@ -747,23 +748,76 @@ main {
     page-break-after: avoid !important;
   }
 
+  /* ── Correção PDF: aproximar títulos do conteúdo subsequente */
+  .section-title {
+    margin: 12pt 0 8pt !important;
+    padding: 8pt 12pt !important;
+    font-size: 12pt !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .section-title + * {
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+
   p, li, td {
     orphans: 4;
     widows: 4;
   }
 
+  /* ── Correção PDF: reduzir destaque do nó central em impressão */
   .center-node {
     background: #eef2ff !important;
     color: #1e3a8a !important;
     border: 2px solid #6366f1 !important;
     box-shadow: none !important;
+    padding: 8pt 14pt !important;
+    margin: 6pt 0 8pt !important;
     break-before: avoid !important;
     break-after: avoid !important;
   }
 
-  .map-grid,
+  /* ── Correção PDF: ajustar distribuição do mapa mental */
+  .map-grid {
+    display: block !important;
+    margin-top: 8pt !important;
+  }
+
   .tree {
     display: block !important;
+  }
+
+  #mapa-mental .lead-cluster {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  #mapa-mental .center-node {
+    margin-bottom: 8pt !important;
+    font-size: 11pt !important;
+  }
+
+  #mapa-mental .section-description {
+    margin-bottom: 6pt !important;
+    font-size: 9pt !important;
+  }
+
+  /* ── Correção PDF: impedir quebra isolada em cálculos práticos */
+  #calculos-praticos .lead-cluster {
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  #calculos-praticos .center-node {
+    margin: 6pt 0 8pt !important;
+    padding: 8pt 14pt !important;
+    font-size: 11pt !important;
   }
 
   .card,
@@ -781,23 +835,47 @@ main {
     page-break-inside: avoid !important;
   }
 
+  /* ── Correção PDF: compactar cards e conteúdo interno */
   .card {
     border-left: 3px solid var(--card-accent) !important;
-    padding: 12pt !important;
-    margin-bottom: 14pt !important;
+    padding: 10pt !important;
+    margin-bottom: 10pt !important;
     box-shadow: none !important;
     background: #ffffff !important;
   }
 
-  .note {
-    font-size: 9pt !important;
-    padding: 8pt 10pt !important;
+  .card h2 {
+    margin-bottom: 6pt !important;
+    font-size: 11pt !important;
   }
 
+  .card p {
+    margin-bottom: 4pt !important;
+  }
+
+  .card ul {
+    margin-top: 4pt !important;
+  }
+
+  .card li {
+    margin: 3pt 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ── Correção PDF: ajustar notas explicativas */
+  .note {
+    margin-top: 6pt !important;
+    padding: 6pt 8pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ── Correção PDF: otimizar tabelas para economia de espaço */
   .table-wrapper {
     overflow: visible !important;
     box-shadow: none !important;
     border: 1px solid var(--line-print) !important;
+    margin: 8pt 0 !important;
   }
 
   table,
@@ -805,8 +883,8 @@ main {
     width: 100% !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    margin: 8pt 0 12pt !important;
-    font-size: 9pt !important;
+    margin: 6pt 0 8pt !important;
+    font-size: 8.5pt !important;
   }
 
   thead {
@@ -820,8 +898,9 @@ main {
   th,
   td {
     border: 1px solid var(--line-print) !important;
-    padding: 5pt 7pt !important;
-    line-height: 1.3 !important;
+    padding: 4pt 6pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
     vertical-align: top !important;
   }
 
@@ -834,6 +913,33 @@ main {
     break-after: avoid !important;
     page-break-after: avoid !important;
     color: var(--primary-print) !important;
+    padding: 8pt 10pt 6pt !important;
+    font-size: 9pt !important;
+  }
+
+  /* ── Correção PDF: compactar listas em linha */
+  .run-list {
+    font-size: 9pt !important;
+    line-height: 1.35 !important;
+    margin: 4pt 0 !important;
+  }
+
+  .run-list span {
+    display: inline !important;
+  }
+
+  /* ── Correção PDF: otimizar tabela da transição ICMS/ISS */
+  .card.transicao {
+    padding: 10pt !important;
+  }
+
+  .card.transicao .table {
+    font-size: 8.5pt !important;
+  }
+
+  .card.transicao th,
+  .card.transicao td {
+    padding: 4pt 6pt !important;
   }
 
   .cell-credito {
@@ -968,16 +1074,16 @@ main {
 
         <article class="card aliquota-zero accent-indigo">
           <h2><span class="icon" aria-hidden="true">🅾️</span>Alíquota Zero — IVA Dual</h2>
-          <ul class="list-compact two-cols">
-            <li>I – dispositivos médicos</li>
-            <li>II – dispositivos de acessibilidade para PCD</li>
-            <li>III – medicamentos</li>
-            <li>IV – produtos de cuidados básicos à saúde menstrual</li>
-            <li>V – produtos hortícolas, frutas e ovos</li>
-            <li>VI – automóveis de passageiros para PCD ou TEA</li>
-            <li>VII – automóveis de passageiros para táxi (motoristas profissionais)</li>
-            <li>VIII – serviços prestados por ICT sem fins lucrativos</li>
-          </ul>
+          <p class="run-list">
+            <span>I – dispositivos médicos</span><span class="sep">·</span>
+            <span>II – dispositivos de acessibilidade para PCD</span><span class="sep">·</span>
+            <span>III – medicamentos</span><span class="sep">·</span>
+            <span>IV – produtos de cuidados básicos à saúde menstrual</span><span class="sep">·</span>
+            <span>V – produtos hortícolas, frutas e ovos</span><span class="sep">·</span>
+            <span>VI – automóveis de passageiros para PCD ou TEA</span><span class="sep">·</span>
+            <span>VII – automóveis de passageiros para táxi (motoristas profissionais)</span><span class="sep">·</span>
+            <span>VIII – serviços prestados por ICT sem fins lucrativos</span>
+          </p>
           <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 143 a 171.</div>
         </article>
 
