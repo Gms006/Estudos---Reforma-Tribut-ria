@@ -114,13 +114,32 @@ a:hover{text-decoration:underline}
   h2 { font-size:14pt; margin:12pt 0 6pt; }
   h3 { font-size:12pt; margin:10pt 0 6pt; }
   h1 + *, h2 + *, h3 + *, h4 + * { page-break-before: avoid !important; break-before: avoid !important; }
+  .section-title { page-break-after: avoid !important; break-after: avoid !important; }
+  .section-title + * { page-break-before: avoid !important; break-before: avoid !important; }
 
   p, li { orphans: 3; widows: 3; }
 
+  /* Macro-seções e clusters */
+  #mapa-mental { page-break-before: always; break-before: page; }
+  #calculos-praticos { page-break-before: always; break-before: page; }
+  .page-3 { page-break-before: always; break-before: page; }
+  .lead-cluster { break-inside: avoid !important; page-break-inside: avoid !important; }
+  .lead-cluster > h2 { page-break-after: avoid !important; break-after: avoid !important; }
+  .lead-cluster > h2 + * { page-break-before: avoid !important; break-before: avoid !important; }
+
   /* Layout: evitar colunas estreitas e cortes laterais */
   .map-grid, .tree { display:block !important; }
-  header { border-bottom:none !important; margin:0 !important; padding:0 !important; margin-bottom:6pt !important; }
-  .center-node { break-before: avoid !important; break-after: avoid !important; }
+  header { border-bottom:none !important; margin:0 !important; padding:0 !important; }
+  .center-node {
+    break-before: avoid !important;
+    break-after: avoid !important;
+    background:#eef2ff !important;
+    color:#111 !important;
+    border:1px solid #c7d2fe !important;
+    box-shadow:none !important;
+    padding:12px 14px !important;
+  }
+  .section-description { margin-bottom: 6pt !important; }
   .map-grid { break-before: avoid !important; }
   .toc { display:none !important; }
 
@@ -138,13 +157,11 @@ a:hover{text-decoration:underline}
   td, th { word-break: break-word; hyphens:auto; }
 
   /* Cores para papel (fidelidade sem escurecer) */
-  .center-node { background:#eef2ff !important; color:#111 !important; border:1px solid #c7d2fe !important; box-shadow:none !important; }
   [style*="border-left:6px solid"] { border-left:3px solid #444 !important; }
 
   /* Links: sem exibir URL após o texto */
   a[href]::after { content:""; }
 
-  #calculos-praticos { page-break-before: always; }
   #calculos-praticos h1, #calculos-praticos h2:first-of-type {
     page-break-after: avoid !important;
     break-after: avoid !important;
@@ -174,9 +191,11 @@ a:hover{text-decoration:underline}
 
 <main>
   <section id="mapa-mental" class="mapa-mental section-wrapper" aria-labelledby="mapa-mental-titulo">
-    <h2 id="mapa-mental-titulo" class="section-heading">Mapa Mental — IVA Dual</h2>
-    <p class="section-description">Resumo visual das principais regras, regimes diferenciados e marcos legais da Reforma Tributária.</p>
-    <div class="center-node"><span class="icon" aria-hidden="true">🧠</span><span>Reforma Tributária · IVA Dual (CBS/IBS)</span></div>
+    <div class="lead-cluster">
+      <h2 id="mapa-mental-titulo" class="section-heading">Mapa Mental — IVA Dual</h2>
+      <p class="section-description">Resumo visual das principais regras, regimes diferenciados e marcos legais da Reforma Tributária.</p>
+      <div class="center-node"><span class="icon" aria-hidden="true">🧠</span><span>Reforma Tributária · IVA Dual (CBS/IBS)</span></div>
+    </div>
 
       <section class="map-grid">
         <article class="card visao">
@@ -360,9 +379,11 @@ a:hover{text-decoration:underline}
   </section>
 
   <section id="calculos-praticos" class="calculos-praticos section-wrapper" aria-labelledby="calculos-praticos-titulo">
-    <h2 id="calculos-praticos-titulo" class="section-heading">Cálculos na Prática — LC 214/2025</h2>
-    <p class="section-description">Exemplos de incidência, composição da base de cálculo e comparativos entre regimes atuais e o IVA Dual.</p>
-    <div class="center-node"><span class="icon" aria-hidden="true">🧮</span><span>LC 214/2025 · Cálculo na Prática</span></div>
+    <div class="lead-cluster">
+      <h2 id="calculos-praticos-titulo" class="section-heading">Cálculos na Prática — LC 214/2025</h2>
+      <p class="section-description">Exemplos de incidência, composição da base de cálculo e comparativos entre regimes atuais e o IVA Dual.</p>
+      <div class="center-node"><span class="icon" aria-hidden="true">🧮</span><span>LC 214/2025 · Cálculo na Prática</span></div>
+    </div>
 
       <section class="map-grid">
         <article class="card receita">
