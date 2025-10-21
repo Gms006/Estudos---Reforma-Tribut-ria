@@ -109,19 +109,24 @@ a:hover{text-decoration:underline}
   body, main { padding:0 !important; font-size:10.5pt; line-height:1.45; }
 
   /* Tipos e títulos */
-  h1, h2, h3 { break-after: avoid; page-break-after: avoid; color:#111 !important; }
+  h1, h2, h3, h4 { break-after: avoid !important; page-break-after: avoid !important; color:#111 !important; }
   h1 { font-size:18pt; margin:10pt 0 6pt; }
   h2 { font-size:14pt; margin:12pt 0 6pt; }
   h3 { font-size:12pt; margin:10pt 0 6pt; }
+  h1 + *, h2 + *, h3 + *, h4 + * { page-break-before: avoid !important; break-before: avoid !important; }
+
+  p, li { orphans: 3; widows: 3; }
 
   /* Layout: evitar colunas estreitas e cortes laterais */
   .map-grid, .tree { display:block !important; }
-  header { border-bottom:none !important; margin:0 !important; padding:0 !important; }
+  header { border-bottom:none !important; margin:0 !important; padding:0 !important; margin-bottom:6pt !important; }
+  .center-node { break-before: avoid !important; break-after: avoid !important; }
+  .map-grid { break-before: avoid !important; }
   .toc { display:none !important; }
 
   /* Componentes que NUNCA podem quebrar no meio */
   section, article, .card, .branch, .note, .checklist, .legal .item,
-  .table, .table-wrapper, figure, img, svg { break-inside: avoid; page-break-inside: avoid; }
+  .table, .table-wrapper, table, figure, img, svg { break-inside: avoid !important; page-break-inside: avoid !important; }
 
   /* Tabelas: cabeçalho repetido e nada de scroll oculto */
   .table-wrapper { overflow: visible !important; }
@@ -140,6 +145,14 @@ a:hover{text-decoration:underline}
   a[href]::after { content:""; }
 
   #calculos-praticos { page-break-before: always; }
+  #calculos-praticos h1, #calculos-praticos h2:first-of-type {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  #calculos-praticos h1 + *, #calculos-praticos h2:first-of-type + * {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
 }
 @media print {.screen-only{display:none !important;}}
 </style>
