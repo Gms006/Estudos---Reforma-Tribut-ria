@@ -109,20 +109,20 @@ a:hover{text-decoration:underline}
   body, main { padding:0 !important; font-size:10.5pt; line-height:1.45; }
 
   /* Tipos e títulos */
-  h1, h2, h3, h4 { break-after: avoid !important; page-break-after: avoid !important; color:#111 !important; }
+  h1, h2, h3, h4, .section-title { break-after: avoid !important; page-break-after: avoid !important; color:#111 !important; }
   h1 { font-size:18pt; margin:10pt 0 6pt; }
   h2 { font-size:14pt; margin:12pt 0 6pt; }
   h3 { font-size:12pt; margin:10pt 0 6pt; }
-  h1 + *, h2 + *, h3 + *, h4 + * { page-break-before: avoid !important; break-before: avoid !important; }
-  .section-title { page-break-after: avoid !important; break-after: avoid !important; }
-  .section-title + * { page-break-before: avoid !important; break-before: avoid !important; }
+  .section-title + *, h1 + *, h2 + *, h3 + *, h4 + * { page-break-before: avoid !important; break-before: avoid !important; }
 
-  p, li { orphans: 3; widows: 3; }
+  p { orphans: 3; widows: 3; }
+  li { orphans: 3; widows: 3; }
 
   /* Macro-seções e clusters */
-  #mapa-mental { page-break-before: always; break-before: page; }
-  #calculos-praticos { page-break-before: always; break-before: page; }
-  .page-3 { page-break-before: always; break-before: page; }
+  #mapa-mental, #calculos-praticos, .page-3 {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
   .lead-cluster { break-inside: avoid !important; page-break-inside: avoid !important; }
   .lead-cluster > h2 { page-break-after: avoid !important; break-after: avoid !important; }
   .lead-cluster > h2 + * { page-break-before: avoid !important; break-before: avoid !important; }
@@ -144,8 +144,8 @@ a:hover{text-decoration:underline}
   .toc { display:none !important; }
 
   /* Componentes que NUNCA podem quebrar no meio */
-  section, article, .card, .branch, .note, .checklist, .legal .item,
-  .table, .table-wrapper, table, figure, img, svg { break-inside: avoid !important; page-break-inside: avoid !important; }
+  section, article, .card, .branch, .note, .legal .item, .table-wrapper, table { break-inside: avoid !important; page-break-inside: avoid !important; }
+  .checklist, figure, img, svg { break-inside: avoid !important; page-break-inside: avoid !important; }
 
   /* Tabelas: cabeçalho repetido e nada de scroll oculto */
   .table-wrapper { overflow: visible !important; }
@@ -185,6 +185,7 @@ a:hover{text-decoration:underline}
   <strong>Sumário</strong>
   <ul>
     <li><a href="#mapa-mental">Mapa Mental</a></li>
+    <li><a href="#bases-legais">Bases Legais</a></li>
     <li><a href="#calculos-praticos">Cálculos na Prática</a></li>
   </ul>
 </nav>
@@ -330,52 +331,51 @@ a:hover{text-decoration:underline}
           <div class="note"><strong>Base legal:</strong> LC 214/2025 (cronograma de repartição e regras de convivência).</div>
         </article>
       </section>
+  </section>
 
-      <section class="legal no-link-print" aria-label="Bases Legais">
-        <h3>Bases Legais (Atualizadas · em 20/10/2025)</h3>
+  <section id="bases-legais" class="legal section-wrapper" aria-label="Bases Legais">
+    <h3>Bases Legais (Atualizadas · em 20/10/2025)</h3>
 
-        <article class="item">
-          <h4>Emenda Constitucional nº 132/2023 <span class="pill vigente">VIGENTE</span></h4>
-          <p>Fundamentos do IVA dual (CBS/IBS), Cesta Básica e regimes diferenciados (arts. 8º–9º).</p>
-          <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
-        </article>
+    <article class="item">
+      <h4>Emenda Constitucional nº 132/2023 <span class="pill vigente">VIGENTE</span></h4>
+      <p>Fundamentos do IVA dual (CBS/IBS), Cesta Básica e regimes diferenciados (arts. 8º–9º).</p>
+      <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
+    </article>
 
-        <article class="item">
-          <h4>Lei Complementar nº 214/2025 — Lei Geral do IBS/CBS <span class="pill vigente">VIGENTE</span></h4>
-          <p>Institui IBS, CBS e IS; regras de não cumulatividade; regimes diferenciados; transição.</p>
-          <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
-        </article>
+    <article class="item">
+      <h4>Lei Complementar nº 214/2025 — Lei Geral do IBS/CBS <span class="pill vigente">VIGENTE</span></h4>
+      <p>Institui IBS, CBS e IS; regras de não cumulatividade; regimes diferenciados; transição.</p>
+      <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
+    </article>
 
-        <article class="item">
-          <h4>PLP nº 108/2024 — Comitê Gestor do IBS <span class="pill pendente">PENDENTE DE APROVAÇÃO</span></h4>
-          <p>Cria o Comitê Gestor do IBS; aprovado no Senado em 30/09/2025; aguarda a Câmara.</p>
-          <p class="where"><a href="https://www.gov.br/fazenda/pt-br/assuntos/noticias/2025/outubro/projeto-de-lei-que-cria-o-comite-gestor-do-imposto-sobre-bens-e-servicos-e-aprovado-no-plenario-do-senado" target="_blank" rel="noopener">Ministério da Fazenda (notícia oficial)</a></p>
-        </article>
-      </section>
+    <article class="item">
+      <h4>PLP nº 108/2024 — Comitê Gestor do IBS <span class="pill pendente">PENDENTE DE APROVAÇÃO</span></h4>
+      <p>Cria o Comitê Gestor do IBS; aprovado no Senado em 30/09/2025; aguarda a Câmara.</p>
+      <p class="where"><a href="https://www.gov.br/fazenda/pt-br/assuntos/noticias/2025/outubro/projeto-de-lei-que-cria-o-comite-gestor-do-imposto-sobre-bens-e-servicos-e-aprovado-no-plenario-do-senado" target="_blank" rel="noopener">Ministério da Fazenda (notícia oficial)</a></p>
+    </article>
 
-      <!-- Inicia a seção das ramificações (EC/LC/PLP) no topo de nova página para caber junta na 3ª página -->
-      <section class="tree page-3" aria-label="Mapa mental visual — Onde encontrar e quando aplicar">
-        <article class="branch">
-          <h5><span class="badge">VIGENTE</span>📜 EC 132/2023</h5>
-          <ul>
-            <li>Cria o modelo do <strong>IVA Dual</strong> e define os <strong>princípios constitucionais</strong> (base ampla, não-cumulatividade, destino) e as <strong>linhas gerais</strong> de regimes (cesta básica, reduções e alíquota zero).</li>
-          </ul>
-        </article>
+    <div class="tree" aria-label="Mapa mental visual — Onde encontrar e quando aplicar">
+      <article class="branch">
+        <h5><span class="badge">VIGENTE</span>📜 EC 132/2023</h5>
+        <ul>
+          <li>Cria o modelo do <strong>IVA Dual</strong> e define os <strong>princípios constitucionais</strong> (base ampla, não-cumulatividade, destino) e as <strong>linhas gerais</strong> de regimes (cesta básica, reduções e alíquota zero).</li>
+        </ul>
+      </article>
 
-        <article class="branch">
-          <h5><span class="badge">VIGENTE</span>📘 LC 214/2025</h5>
-          <ul>
-            <li><strong>Regulamenta</strong> o modelo constitucional: institui <strong>IBS/CBS</strong>, detalha <strong>crédito financeiro</strong> e regras operacionais, define <strong>regimes diferenciados</strong> e a <strong>transição/convivência</strong> com ICMS/ISS.</li>
-          </ul>
-        </article>
+      <article class="branch">
+        <h5><span class="badge">VIGENTE</span>📘 LC 214/2025</h5>
+        <ul>
+          <li><strong>Regulamenta</strong> o modelo constitucional: institui <strong>IBS/CBS</strong>, detalha <strong>crédito financeiro</strong> e regras operacionais, define <strong>regimes diferenciados</strong> e a <strong>transição/convivência</strong> com ICMS/ISS.</li>
+        </ul>
+      </article>
 
-        <article class="branch">
-          <h5><span class="badge">PENDENTE</span>🧭 PLP 108/2024</h5>
-          <ul>
-            <li>Institui o <strong>Comitê Gestor do IBS</strong>, definindo <strong>governança, competências e operação</strong> do imposto (arrecadação, distribuição e fiscalização).</li>
-          </ul>
-        </article>
-      </section>
+      <article class="branch">
+        <h5><span class="badge">PENDENTE</span>🧭 PLP 108/2024</h5>
+        <ul>
+          <li>Institui o <strong>Comitê Gestor do IBS</strong>, definindo <strong>governança, competências e operação</strong> do imposto (arrecadação, distribuição e fiscalização).</li>
+        </ul>
+      </article>
+    </div>
   </section>
 
   <section id="calculos-praticos" class="calculos-praticos section-wrapper" aria-labelledby="calculos-praticos-titulo">
