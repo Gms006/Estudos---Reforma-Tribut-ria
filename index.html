@@ -141,6 +141,25 @@ header p {
   max-width: 760px;
 }
 
+/* ── Capa ilustrativa para o guia */
+.hero-figure {
+  margin: 8px auto 0;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.05));
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--line));
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft), var(--shadow-crisp);
+  max-width: 720px;
+}
+
+.hero-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
 .print-btn {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #fff;
@@ -691,6 +710,7 @@ main {
     padding: 0 !important;
   }
 
+  /* ── Correção PDF: capa inicial com título e imagem guia */
   header {
     margin-bottom: 16pt !important;
     padding: 8pt 0 !important;
@@ -698,6 +718,8 @@ main {
     border-radius: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
+    break-after: page !important;
+    page-break-after: always !important;
   }
 
   header h1 {
@@ -709,6 +731,23 @@ main {
   header p {
     font-size: 10pt !important;
     color: var(--muted-print) !important;
+  }
+
+  .hero-figure {
+    margin: 12pt auto 0 !important;
+    padding: 12pt !important;
+    max-width: 85% !important;
+    border-radius: 16pt !important;
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.2), rgba(59, 130, 246, 0.08)) !important;
+    border: 1pt solid color-mix(in srgb, var(--primary-print) 35%, #ffffff) !important;
+    break-inside: avoid !important;
+  }
+
+  .hero-figure img {
+    border-radius: 12pt !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
   }
 
   h1 {
@@ -967,6 +1006,9 @@ main {
   <h1>Reforma Tributária — IVA Dual e Cálculos na Prática</h1>
   <p>Mapa mental do IVA Dual, regimes especiais e exemplos detalhados de apuração com base na LC 214/2025.</p>
   <button type="button" class="print-btn screen-only" onclick="window.print()"><span class="emoji" aria-hidden="true">🖨️</span><span>Imprimir</span></button>
+  <figure class="hero-figure">
+    <img src="Guia Prático Reforma.png" alt="Guia prático da Reforma Tributária" loading="lazy" />
+  </figure>
 </header>
 
 <nav class="toc" aria-label="Sumário">
@@ -979,10 +1021,8 @@ main {
 </nav>
 
 <main>
-  <section id="mapa-mental" class="mapa-mental section-wrapper" aria-labelledby="mapa-mental-titulo">
+  <section id="mapa-mental" class="mapa-mental section-wrapper" aria-label="Mapa mental do IVA Dual">
     <div class="lead-cluster">
-      <h2 id="mapa-mental-titulo" class="section-heading">Mapa Mental — IVA Dual</h2>
-      <p class="section-description">Resumo visual das principais regras, regimes diferenciados e marcos legais da Reforma Tributária.</p>
       <div class="center-node"><span class="icon" aria-hidden="true">🧠</span><span>Reforma Tributária · IVA Dual (CBS/IBS)</span></div>
     </div>
 
