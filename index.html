@@ -3,182 +3,1012 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="[Nome]" />
+<meta name="description" content="Reforma Tributária - IVA Dual e Cálculos na Prática" />
+<meta name="keywords" content="reforma tributária, IVA dual, CBS, IBS" />
+<meta name="date" content="2025-10-21" />
 <title>Reforma Tributária — IVA Dual e Cálculos na Prática</title>
 <style>
-:root{
-  /* MERGE */
-  --ink:#0f172a;--muted:#475569;--bg:#ffffff;--page:#f7fafc;--line:#e2e8f0;
-  --primary:#1d4ed8;--accent:#0ea5e9;--ok:#16a34a;--warn:#d97706;--danger:#dc2626;
-  --visao:#2c5282;--principios:#2f855a;--cronograma:#c05621;--credito:#744210;--transicao:#553c9a;--simples:#97266d;--impactos:#c53030;
-  --receita:#2c5282;--base:#2f855a;--fato:#c05621;--apuracao:#744210;--exemplos:#553c9a;--comparativo:#c53030;
+/* ═══════════════════════════════════════
+   VARIÁVEIS E RESET
+   ═══════════════════════════════════════ */
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --bg: #ffffff;
+  --page: #f8fafc;
+  --line: #e2e8f0;
+  --primary: #1d4ed8;
+  --primary-dark: #1e40af;
+  --accent: #0ea5e9;
+  --ok: #16a34a;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --visao: #2c5282;
+  --principios: #2f855a;
+  --cronograma: #c05621;
+  --credito: #744210;
+  --transicao: #553c9a;
+  --simples: #97266d;
+  --impactos: #c53030;
+  --receita: #2c5282;
+  --base: #2f855a;
+  --fato: #c05621;
+  --apuracao: #744210;
+  --exemplos: #553c9a;
+  --comparativo: #c53030;
+  --surface: rgba(15, 23, 42, 0.04);
+  --shadow-soft: 0 4px 12px rgba(15, 23, 42, 0.04);
+  --shadow-crisp: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--page)}
-body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;color:var(--ink);background:var(--page);padding:24px}
-header{max-width:1200px;margin:0 auto 24px;padding:16px 20px 24px;border-bottom:3px solid var(--primary);text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
-header h1{font-size:2rem;color:var(--primary);letter-spacing:.2px}
-header p{color:var(--muted);max-width:760px}
-.print-btn{background:var(--primary);color:#fff;border:none;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;box-shadow:0 6px 14px rgba(2,6,23,.15);transition:transform .15s ease,box-shadow .15s ease;gap:8px;align-items:center;display:inline-flex}
-.print-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(2,6,23,.18)}
-nav.toc{max-width:1200px;margin:0 auto 24px;padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--bg);box-shadow:0 6px 16px rgba(15,23,42,.08);display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-nav.toc strong{color:var(--primary);font-size:1rem;text-transform:uppercase;letter-spacing:.12em}
-nav.toc ul{list-style:none;display:flex;flex-wrap:wrap;gap:12px;margin:0;padding:0}
-nav.toc a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;text-decoration:none;font-weight:600}
-nav.toc a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-main{max-width:1200px;margin:0 auto}
-.section-wrapper{margin-bottom:56px}
-.section-heading{font-size:1.7rem;color:var(--primary);margin-bottom:12px}
-.section-description{color:var(--muted);margin-bottom:16px}
-.center-node{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;padding:18px 22px;border-radius:14px;font-weight:800;box-shadow:0 8px 18px rgba(0,0,0,.12);margin:8px auto}
-.center-node .icon{font-size:22px}
-.map-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
-.card{background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 6px 14px rgba(2,6,23,.06);padding:18px;position:relative;overflow:visible}
-.card h2{display:flex;align-items:center;gap:10px;font-size:1.15rem;margin-bottom:10px}
-.card .icon{font-size:20px}
-.card ul{list-style:none;padding-left:0}
-.card li{padding-left:26px;margin:8px 0;position:relative}
-.card li::before{content:"";position:absolute;left:8px;top:.6em;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.65}
-.card.visao{border-left:6px solid var(--visao)}
-.card.principios{border-left:6px solid var(--principios)}
-.card.cronograma{border-left:6px solid var(--cronograma)}
-.card.credito{border-left:6px solid var(--credito)}
-.card.transicao{border-left:6px solid var(--transicao)}
-.card.simples{border-left:6px solid var(--simples)}
-.card.impactos{border-left:6px solid var(--impactos)}
-.card.receita{border-left:6px solid var(--receita)}
-.card.base{border-left:6px solid var(--base)}
-.card.fato{border-left:6px solid var(--fato)}
-.card.apuracao{border-left:6px solid var(--apuracao)}
-.card.exemplos{border-left:6px solid var(--exemplos)}
-.card.comparativo{border-left:6px solid var(--comparativo)}
-.list-compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 14px;margin-top:6px}
-.list-compact li{margin:2px 0;padding-left:18px;overflow-wrap:anywhere;hyphens:auto}
-.list-compact li::before{left:2px}
-.list-compact.two-cols{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-@media (max-width:900px){.list-compact.two-cols{grid-template-columns:1fr}}
-.run-list{margin:6px 0 4px;font-size:.96rem;line-height:1.5}
-.run-list span{white-space:normal;hyphens:auto;overflow-wrap:anywhere}
-.run-list .sep{margin:0 6px;color:#94a3b8}
-.note{margin-top:10px;border:1px dashed var(--line);background:#f8fafc;border-left:4px solid var(--primary);padding:10px 12px;border-radius:12px}
-.note strong{font-weight:700}
-.table-wrapper{overflow-x:auto;margin:12px 0}
-.table{width:100%;border-collapse:collapse;font-size:.94rem;margin:10px 0}
-.table th,.table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
-.table th{background:var(--primary);color:#fff;font-weight:600}
-.table tr:nth-child(even){background:#f8fafc}
-.table .num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-.table .center{text-align:center}
-.mapa-mental .table th,.mapa-mental .table td{text-align:center}
-.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-.legal{margin-top:26px}
-.legal h3{font-size:1.25rem;color:var(--primary);margin:16px 0 10px}
-.legal .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;color:#fff;margin-left:6px}
-.pill.vigente{background:var(--ok)}
-.pill.reg{background:var(--warn)}
-.pill.pendente{background:var(--danger)}
-.legal .item{background:#fff;border:1px solid var(--line);border-left:5px solid var(--primary);border-radius:12px;padding:12px 14px;margin:12px 0}
-.legal .item h4{margin-bottom:6px}
-.legal .where{font-size:.9rem;color:var(--muted)}
-.tree{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
-.branch{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
-.branch h5{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.badge{display:inline-block;font-size:.75rem;background:#eef2ff;color:#3730a3;padding:2px 8px;border-radius:999px;margin-right:6px}
-.checklist{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
-.checklist li{list-style:none;margin:6px 0;padding-left:22px;position:relative}
-.checklist li::before{content:"✔";position:absolute;left:0;color:var(--ok)}
-.highlight{background:#fef3c7;padding:2px 6px;border-radius:4px;font-weight:600}
-.red{color:var(--danger)}
-.green{color:var(--ok)}
-.blue{color:var(--primary)}
-.section-title{margin:32px 0 16px;padding:12px 16px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;border-radius:12px;font-size:1.3rem;font-weight:700}
-a{color:var(--primary)}
-a:hover{text-decoration:underline}
-.screen-only{display:inline-flex}
-@media (max-width:720px){
-  body{padding:16px}
-  header{padding:16px 12px 20px}
-  nav.toc{flex-direction:column;align-items:flex-start}
-  nav.toc ul{width:100%;gap:8px}
-  nav.toc a{width:100%;justify-content:center}
-  .section-heading{text-align:center}
-  .center-node{width:100%;justify-content:center;text-align:center}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
-@media print {
-  @page { size: A4 portrait; margin: 16mm 14mm 18mm 14mm; }
-  html, body { background:#fff !important; color:#111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body, main { padding:0 !important; font-size:10.5pt; line-height:1.45; }
 
-  /* Tipos e títulos */
-  h1, h2, h3, h4, .section-title { break-after: avoid !important; page-break-after: avoid !important; color:#111 !important; }
-  h1 { font-size:18pt; margin:10pt 0 6pt; }
-  h2 { font-size:14pt; margin:12pt 0 6pt; }
-  h3 { font-size:12pt; margin:10pt 0 6pt; }
-  .section-title + *, h1 + *, h2 + *, h3 + *, h4 + * { page-break-before: avoid !important; break-before: avoid !important; }
+html {
+  background: var(--page);
+}
 
-  p { orphans: 3; widows: 3; }
-  li { orphans: 3; widows: 3; }
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--page);
+  color: var(--ink);
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  line-height: 1.65;
+  padding: 28px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
 
-  /* Macro-seções e clusters */
-  #mapa-mental, #calculos-praticos, .page-3 {
-    page-break-before: auto !important;
-    break-before: auto !important;
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible,
+.print-btn:focus-visible,
+nav.toc a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 70%, #ffffff);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+button,
+.print-btn {
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.icon,
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+}
+
+.screen-only {
+  display: inline-flex;
+}
+
+.print-hide {
+  display: inline;
+}
+
+.print-show {
+  display: none;
+}
+
+/* ═══════════════════════════════════════
+   ESTILOS GERAIS WEB
+   ═══════════════════════════════════════ */
+header {
+  max-width: 1200px;
+  margin: 0 auto 28px;
+  padding: 18px 24px 28px;
+  border-bottom: 3px solid var(--primary);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft), var(--shadow-crisp);
+}
+
+header h1 {
+  font-size: 2.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+header p {
+  color: var(--muted);
+  max-width: 760px;
+}
+
+/* ── Capa ilustrativa para o guia */
+.hero-figure {
+  margin: 8px auto 0;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.05));
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--line));
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft), var(--shadow-crisp);
+  max-width: 720px;
+}
+
+.hero-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.print-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.print-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.22);
+}
+
+nav.toc {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  padding: 20px 24px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: var(--shadow-soft), var(--shadow-crisp);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+nav.toc strong {
+  color: var(--primary);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+nav.toc ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+nav.toc a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  font-weight: 600;
+}
+
+nav.toc a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+}
+
+.section-wrapper {
+  margin-bottom: 64px;
+}
+
+.section-heading {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.section-description {
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.center-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(29, 78, 216, 0.08));
+  color: #fff;
+  padding: 18px 26px;
+  border-radius: 16px;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+}
+
+.map-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.list-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px 16px;
+  margin-top: 6px;
+  list-style: none;
+  padding: 0;
+}
+
+.list-compact li {
+  margin: 2px 0;
+  padding-left: 18px;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+
+.list-compact li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.65em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.list-compact.two-cols {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.run-list {
+  margin: 6px 0 4px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.run-list span {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.run-list .sep {
+  color: #94a3b8;
+  margin: 0 2px;
+}
+
+.note {
+  margin-top: 12px;
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--line));
+  border-left: 4px solid var(--primary);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(59, 130, 246, 0.04));
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: var(--ink);
+}
+
+.section-title {
+  margin: 36px 0 20px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  border-radius: 14px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.highlight {
+  background: #fef3c7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.red {
+  color: var(--danger);
+}
+
+.green {
+  color: var(--ok);
+}
+
+.blue {
+  color: var(--primary);
+}
+
+/* ═══════════════════════════════════════
+   COMPONENTES
+   ═══════════════════════════════════════ */
+.card {
+  --card-accent: var(--primary);
+  position: relative;
+  padding: 22px;
+  background: #ffffff;
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 12%, #ffffff), #ffffff);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 14%, var(--line));
+  border-left: 4px solid var(--card-accent);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft), var(--shadow-crisp);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+.card h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card .icon {
+  font-size: 1.35rem;
+}
+
+.card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.card li {
+  padding-left: 26px;
+  margin: 8px 0;
+  position: relative;
+}
+
+.card li::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0.65em;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+.card.visao { --card-accent: var(--visao); }
+.card.principios { --card-accent: var(--principios); }
+.card.cronograma { --card-accent: var(--cronograma); }
+.card.credito { --card-accent: var(--credito); }
+.card.transicao { --card-accent: var(--transicao); }
+.card.simples { --card-accent: var(--simples); }
+.card.impactos { --card-accent: var(--impactos); }
+.card.receita { --card-accent: var(--receita); }
+.card.base { --card-accent: var(--base); }
+.card.fato { --card-accent: var(--fato); }
+.card.apuracao { --card-accent: var(--apuracao); }
+.card.exemplos { --card-accent: var(--exemplos); }
+.card.comparativo { --card-accent: var(--comparativo); }
+.card.accent-sky { --card-accent: #0ea5e9; }
+.card.accent-emerald { --card-accent: #10b981; }
+.card.accent-indigo { --card-accent: #6366f1; }
+
+.table-wrapper {
+  overflow: hidden;
+  overflow-x: auto;
+  margin: 16px 0;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  background: #ffffff;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.96rem;
+  min-width: 640px;
+}
+
+.table caption {
+  caption-side: top;
+  padding: 14px 18px 10px;
+  font-weight: 700;
+  text-align: left;
+  color: var(--primary);
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  vertical-align: top;
+  background: #ffffff;
+}
+
+.table thead th {
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.table .num {
+  font-family: "SF Mono", "Monaco", "Consolas", "Liberation Mono", monospace;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table .center {
+  text-align: center;
+}
+
+.mapa-mental .table th,
+.mapa-mental .table td {
+  text-align: center;
+}
+
+.num {
+  font-family: "SF Mono", "Monaco", "Consolas", "Liberation Mono", monospace;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cell-credito {
+  background: #d1fae5;
+  border: 1px solid #86efac;
+}
+
+.cell-debito {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+}
+
+.legal {
+  margin-top: 32px;
+}
+
+.legal h3 {
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin: 16px 0 10px;
+}
+
+.legal .pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: #ffffff;
+  margin-left: 6px;
+}
+
+.pill.vigente { background: var(--ok); }
+.pill.reg { background: var(--warn); }
+.pill.pendente { background: var(--danger); }
+
+.legal .item {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--primary);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 14px 0;
+  box-shadow: var(--shadow-crisp);
+}
+
+.legal .where {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.tree {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.branch {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow-crisp);
+}
+
+.branch h5 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+}
+
+.checklist {
+  margin-top: 24px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.checklist li {
+  list-style: none;
+  margin: 6px 0;
+  padding-left: 22px;
+  position: relative;
+}
+
+.checklist li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--ok);
+}
+
+/* ═══════════════════════════════════════
+   UTILITÁRIOS
+   ═══════════════════════════════════════ */
+.print-break-before {
+  break-before: page;
+}
+
+.print-break-after {
+  break-after: page;
+}
+
+.print-no-break {
+  break-inside: avoid;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-  .lead-cluster { break-inside: avoid !important; page-break-inside: avoid !important; }
-  .lead-cluster > h2 { page-break-after: avoid !important; break-after: avoid !important; }
-  .lead-cluster > h2 + * { page-break-before: avoid !important; break-before: avoid !important; }
+}
 
-  /* Layout: evitar colunas estreitas e cortes laterais */
-  .map-grid, .tree { display:block !important; }
-  header { border-bottom:none !important; margin:0 !important; padding:0 !important; }
+@media (max-width: 900px) {
+  .list-compact.two-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 18px;
+  }
+
+  header {
+    padding: 18px 16px 24px;
+  }
+
+  nav.toc {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav.toc ul {
+    width: 100%;
+    gap: 10px;
+  }
+
+  nav.toc a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-heading {
+    text-align: center;
+  }
+
   .center-node {
-    break-before: avoid !important;
-    break-after: avoid !important;
-    background:#eef2ff !important;
-    color:#111 !important;
-    border:1px solid #c7d2fe !important;
-    box-shadow:none !important;
-    padding:12px 14px !important;
-  }
-  .section-description { margin-bottom: 6pt !important; }
-  .map-grid { break-before: avoid !important; }
-  .toc { display:none !important; }
-
-  /* Componentes que NUNCA podem quebrar no meio */
-  section, article, .card, .branch, .note, .legal .item, .table-wrapper, table { break-inside: avoid !important; page-break-inside: avoid !important; }
-  .checklist, figure, img, svg { break-inside: avoid !important; page-break-inside: avoid !important; }
-
-  /* Tabelas: cabeçalho repetido e nada de scroll oculto */
-  .table-wrapper { overflow: visible !important; }
-  table, .table { width:100% !important; border-collapse: collapse !important; margin:8pt 0 12pt !important; }
-  thead { display: table-header-group; }
-  tfoot { display: table-footer-group; }
-  th, td { border:1px solid #ddd !important; padding:4pt 6pt !important; vertical-align:top; font-size:9pt; }
-  th { background:#f2f2f2 !important; color:#111 !important; text-align:left; }
-  td, th { word-break: break-word; hyphens:auto; }
-
-  /* Cores para papel (fidelidade sem escurecer) */
-  [style*="border-left:6px solid"] { border-left:3px solid #444 !important; }
-
-  /* Links: sem exibir URL após o texto */
-  a[href]::after { content:""; }
-
-  #calculos-praticos h1, #calculos-praticos h2:first-of-type {
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-  }
-  #calculos-praticos h1 + *, #calculos-praticos h2:first-of-type + * {
-    page-break-before: avoid !important;
-    break-before: avoid !important;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 }
-@media print {.screen-only{display:none !important;}}
+
+/* ═══════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════ */
+@media print {
+  :root {
+    --ink-print: #111827;
+    --muted-print: #6b7280;
+    --primary-print: #1d4ed8;
+    --line-print: #d1d5db;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+  }
+
+  body {
+    font-size: 10pt;
+    line-height: 1.4 !important;
+    padding: 0 !important;
+    color: var(--ink-print) !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* ── Correção PDF: capa inicial com título e imagem guia */
+  header {
+    margin-bottom: 16pt !important;
+    padding: 8pt 0 !important;
+    border-bottom: 2pt solid var(--primary-print) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  header h1 {
+    font-size: 20pt !important;
+    margin-bottom: 4pt !important;
+    color: var(--primary-print) !important;
+  }
+
+  header p {
+    font-size: 10pt !important;
+    color: var(--muted-print) !important;
+  }
+
+  .hero-figure {
+    margin: 12pt auto 0 !important;
+    padding: 12pt !important;
+    max-width: 85% !important;
+    border-radius: 16pt !important;
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.2), rgba(59, 130, 246, 0.08)) !important;
+    border: 1pt solid color-mix(in srgb, var(--primary-print) 35%, #ffffff) !important;
+    break-inside: avoid !important;
+  }
+
+  .hero-figure img {
+    border-radius: 12pt !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  h1 {
+    font-size: 18pt !important;
+    margin: 12pt 0 8pt !important;
+  }
+
+  h2 {
+    font-size: 14pt !important;
+    margin: 10pt 0 6pt !important;
+  }
+
+  h3 {
+    font-size: 12pt !important;
+    margin: 8pt 0 5pt !important;
+  }
+
+  .print-btn,
+  nav.toc,
+  .screen-only,
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-show {
+    display: block !important;
+  }
+
+  /* ── Correção PDF: compactação de seções para reduzir espaços vazios */
+  .section-wrapper {
+    margin-bottom: 14pt !important;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .section-title {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  /* ── Correção PDF: aproximar títulos do conteúdo subsequente */
+  .section-title {
+    margin: 12pt 0 8pt !important;
+    padding: 8pt 12pt !important;
+    font-size: 12pt !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .section-title + * {
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+
+  p, li, td {
+    orphans: 4;
+    widows: 4;
+  }
+
+  /* ── Correção PDF: reduzir destaque do nó central em impressão */
+  .center-node {
+    background: #eef2ff !important;
+    color: #1e3a8a !important;
+    border: 2px solid #6366f1 !important;
+    box-shadow: none !important;
+    padding: 8pt 14pt !important;
+    margin: 6pt 0 8pt !important;
+    break-before: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* ── Correção PDF: ajustar distribuição do mapa mental */
+  .map-grid {
+    display: block !important;
+    margin-top: 8pt !important;
+  }
+
+  .tree {
+    display: block !important;
+  }
+
+  #mapa-mental .lead-cluster {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  #mapa-mental .center-node {
+    margin-bottom: 8pt !important;
+    font-size: 11pt !important;
+  }
+
+  #mapa-mental .section-description {
+    margin-bottom: 6pt !important;
+    font-size: 9pt !important;
+  }
+
+  /* ── Correção PDF: impedir quebra isolada em cálculos práticos */
+  #calculos-praticos .lead-cluster {
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  #calculos-praticos .center-node {
+    margin: 6pt 0 8pt !important;
+    padding: 8pt 14pt !important;
+    font-size: 11pt !important;
+  }
+
+  .card,
+  .table-wrapper,
+  .note,
+  .branch,
+  .legal .item,
+  section,
+  article,
+  figure,
+  img,
+  svg,
+  .checklist {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* ── Correção PDF: compactar cards e conteúdo interno */
+  .card {
+    border-left: 3px solid var(--card-accent) !important;
+    padding: 10pt !important;
+    margin-bottom: 10pt !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .card h2 {
+    margin-bottom: 6pt !important;
+    font-size: 11pt !important;
+  }
+
+  .card p {
+    margin-bottom: 4pt !important;
+  }
+
+  .card ul {
+    margin-top: 4pt !important;
+  }
+
+  .card li {
+    margin: 3pt 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ── Correção PDF: ajustar notas explicativas */
+  .note {
+    margin-top: 6pt !important;
+    padding: 6pt 8pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.3 !important;
+  }
+
+  /* ── Correção PDF: otimizar tabelas para economia de espaço */
+  .table-wrapper {
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: 1px solid var(--line-print) !important;
+    margin: 8pt 0 !important;
+  }
+
+  table,
+  .table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin: 6pt 0 8pt !important;
+    font-size: 8.5pt !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--line-print) !important;
+    padding: 4pt 6pt !important;
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+    vertical-align: top !important;
+  }
+
+  .table thead th {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+  }
+
+  caption {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    color: var(--primary-print) !important;
+    padding: 8pt 10pt 6pt !important;
+    font-size: 9pt !important;
+  }
+
+  /* ── Correção PDF: compactar listas em linha */
+  .run-list {
+    font-size: 9pt !important;
+    line-height: 1.35 !important;
+    margin: 4pt 0 !important;
+  }
+
+  .run-list span {
+    display: inline !important;
+  }
+
+  /* ── Correção PDF: otimizar tabela da transição ICMS/ISS */
+  .card.transicao {
+    padding: 10pt !important;
+  }
+
+  .card.transicao .table {
+    font-size: 8.5pt !important;
+  }
+
+  .card.transicao th,
+  .card.transicao td {
+    padding: 4pt 6pt !important;
+  }
+
+  .cell-credito {
+    background: #d1fae5 !important;
+    border: 1px solid #86efac !important;
+  }
+
+  .cell-debito {
+    background: #fef3c7 !important;
+    border: 1px solid #fcd34d !important;
+  }
+
+  .emoji,
+  .icon {
+    font-size: 14pt !important;
+    display: inline-block !important;
+    width: 20pt !important;
+    text-align: center !important;
+  }
+}
 </style>
 </head>
 <body>
 <header>
   <h1>Reforma Tributária — IVA Dual e Cálculos na Prática</h1>
   <p>Mapa mental do IVA Dual, regimes especiais e exemplos detalhados de apuração com base na LC 214/2025.</p>
-  <button type="button" class="print-btn screen-only" onclick="window.print()">🖨️ Imprimir</button>
+  <button type="button" class="print-btn screen-only" onclick="window.print()"><span class="emoji" aria-hidden="true">🖨️</span><span>Imprimir</span></button>
+  <figure class="hero-figure">
+    <img src="Guia Prático Reforma.png" alt="Guia prático da Reforma Tributária" loading="lazy" />
+  </figure>
 </header>
 
 <nav class="toc" aria-label="Sumário">
@@ -191,10 +1021,8 @@ a:hover{text-decoration:underline}
 </nav>
 
 <main>
-  <section id="mapa-mental" class="mapa-mental section-wrapper" aria-labelledby="mapa-mental-titulo">
+  <section id="mapa-mental" class="mapa-mental section-wrapper" aria-label="Mapa mental do IVA Dual">
     <div class="lead-cluster">
-      <h2 id="mapa-mental-titulo" class="section-heading">Mapa Mental — IVA Dual</h2>
-      <p class="section-description">Resumo visual das principais regras, regimes diferenciados e marcos legais da Reforma Tributária.</p>
       <div class="center-node"><span class="icon" aria-hidden="true">🧠</span><span>Reforma Tributária · IVA Dual (CBS/IBS)</span></div>
     </div>
 
@@ -239,7 +1067,7 @@ a:hover{text-decoration:underline}
           <div class="note foot"><strong>Base legal:</strong> LC 214/2025 (regras de crédito, compensação e mecanismos de cobrança).</div>
         </article>
 
-        <article class="card" style="border-left:6px solid #0ea5e9">
+        <article class="card reducao-30 accent-sky">
           <h2><span class="icon" aria-hidden="true">📉</span>Redução de 30% — IVA Dual</h2>
           <p class="run-list">
             <span>I – administradores</span><span class="sep">·</span>
@@ -264,7 +1092,7 @@ a:hover{text-decoration:underline}
           <div class="note"><strong>Base legal:</strong> LC 214/2025, art. 127.</div>
         </article>
 
-        <article class="card" style="border-left:6px solid #10b981">
+        <article class="card reducao-60 accent-emerald">
           <h2><span class="icon" aria-hidden="true">🟩</span>Redução de 60% — IVA Dual</h2>
           <p class="run-list">
             <span>I – serviços de educação</span><span class="sep">·</span>
@@ -284,18 +1112,18 @@ a:hover{text-decoration:underline}
           <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 128 a 142.</div>
         </article>
 
-        <article class="card" style="border-left:6px solid #6366f1">
+        <article class="card aliquota-zero accent-indigo">
           <h2><span class="icon" aria-hidden="true">🅾️</span>Alíquota Zero — IVA Dual</h2>
-          <ul class="list-compact two-cols">
-            <li>I – dispositivos médicos</li>
-            <li>II – dispositivos de acessibilidade para PCD</li>
-            <li>III – medicamentos</li>
-            <li>IV – produtos de cuidados básicos à saúde menstrual</li>
-            <li>V – produtos hortícolas, frutas e ovos</li>
-            <li>VI – automóveis de passageiros para PCD ou TEA</li>
-            <li>VII – automóveis de passageiros para táxi (motoristas profissionais)</li>
-            <li>VIII – serviços prestados por ICT sem fins lucrativos</li>
-          </ul>
+          <p class="run-list">
+            <span>I – dispositivos médicos</span><span class="sep">·</span>
+            <span>II – dispositivos de acessibilidade para PCD</span><span class="sep">·</span>
+            <span>III – medicamentos</span><span class="sep">·</span>
+            <span>IV – produtos de cuidados básicos à saúde menstrual</span><span class="sep">·</span>
+            <span>V – produtos hortícolas, frutas e ovos</span><span class="sep">·</span>
+            <span>VI – automóveis de passageiros para PCD ou TEA</span><span class="sep">·</span>
+            <span>VII – automóveis de passageiros para táxi (motoristas profissionais)</span><span class="sep">·</span>
+            <span>VIII – serviços prestados por ICT sem fins lucrativos</span>
+          </p>
           <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 143 a 171.</div>
         </article>
 
@@ -356,21 +1184,21 @@ a:hover{text-decoration:underline}
 
     <div class="tree" aria-label="Mapa mental visual — Onde encontrar e quando aplicar">
       <article class="branch">
-        <h5><span class="badge">VIGENTE</span>📜 EC 132/2023</h5>
+        <h5><span class="badge">VIGENTE</span><span class="icon" aria-hidden="true">📜</span> EC 132/2023</h5>
         <ul>
           <li>Cria o modelo do <strong>IVA Dual</strong> e define os <strong>princípios constitucionais</strong> (base ampla, não-cumulatividade, destino) e as <strong>linhas gerais</strong> de regimes (cesta básica, reduções e alíquota zero).</li>
         </ul>
       </article>
 
       <article class="branch">
-        <h5><span class="badge">VIGENTE</span>📘 LC 214/2025</h5>
+        <h5><span class="badge">VIGENTE</span><span class="icon" aria-hidden="true">📘</span> LC 214/2025</h5>
         <ul>
           <li><strong>Regulamenta</strong> o modelo constitucional: institui <strong>IBS/CBS</strong>, detalha <strong>crédito financeiro</strong> e regras operacionais, define <strong>regimes diferenciados</strong> e a <strong>transição/convivência</strong> com ICMS/ISS.</li>
         </ul>
       </article>
 
       <article class="branch">
-        <h5><span class="badge">PENDENTE</span>🧭 PLP 108/2024</h5>
+        <h5><span class="badge">PENDENTE</span><span class="icon" aria-hidden="true">🧭</span> PLP 108/2024</h5>
         <ul>
           <li>Institui o <strong>Comitê Gestor do IBS</strong>, definindo <strong>governança, competências e operação</strong> do imposto (arrecadação, distribuição e fiscalização).</li>
         </ul>
@@ -593,11 +1421,11 @@ a:hover{text-decoration:underline}
                 </tr>
                 <tr>
                   <td>SLD DEV/CRED</td>
-                  <td class="num" style="background-color: #90ee90;">28.500,00</td>
+                  <td class="num cell-credito">28.500,00</td>
                   <td class="num">-</td>
-                  <td class="num" style="background-color: #ffff00;">14.250,00</td>
-                  <td class="num" style="background-color: #ffff00;">14.250,00</td>
-                  <td class="num" style="background-color: #ffff00;">14.250,00</td>
+                  <td class="num cell-debito">14.250,00</td>
+                  <td class="num cell-debito">14.250,00</td>
+                  <td class="num cell-debito">14.250,00</td>
                 </tr>
               </tbody>
             </table>
@@ -659,9 +1487,9 @@ a:hover{text-decoration:underline}
                   <td>SLD DEV/CRED</td>
                   <td class="num"></td>
                   <td class="num">-</td>
-                  <td class="num" style="background-color: #ffff00;">21.375,00</td>
-                  <td class="num" style="background-color: #ffff00;">7.125,00</td>
-                  <td class="num" style="background-color: #ffff00;">7.125,00</td>
+                  <td class="num cell-debito">21.375,00</td>
+                  <td class="num cell-debito">7.125,00</td>
+                  <td class="num cell-debito">7.125,00</td>
                 </tr>
               </tbody>
             </table>
@@ -715,11 +1543,11 @@ a:hover{text-decoration:underline}
                 </tr>
                 <tr>
                   <td>SLD DEV/CRED</td>
-                  <td class="num" style="background-color: #ffff00;">71.250,00</td>
-                  <td class="num" style="background-color: #90ee90;">7.125,00</td>
-                  <td class="num" style="background-color: #90ee90;">7.125,00</td>
-                  <td class="num" style="background-color: #90ee90;">7.125,00</td>
-                  <td class="num" style="background-color: #90ee90;">7.125,00</td>
+                  <td class="num cell-debito">71.250,00</td>
+                  <td class="num cell-credito">7.125,00</td>
+                  <td class="num cell-credito">7.125,00</td>
+                  <td class="num cell-credito">7.125,00</td>
+                  <td class="num cell-credito">7.125,00</td>
                 </tr>
               </tbody>
             </table>
@@ -727,7 +1555,7 @@ a:hover{text-decoration:underline}
         </article>
       </section>
   
-      <h3 class="section-title">💡 Exemplos do Fato Gerador</h3>
+      <h3 class="section-title"><span class="emoji" aria-hidden="true">💡</span> Exemplos do Fato Gerador</h3>
 
       <section class="map-grid">
         <article class="card exemplos">
@@ -829,7 +1657,7 @@ a:hover{text-decoration:underline}
                   <td>BASE DE CÁLCULO IBS</td>
                   <td class="num">1.190,00</td>
                   <td>BASE DE CÁLCULO IBS</td>
-                  <td class="num" style="background-color: #ffff00;">190,00</td>
+                  <td class="num cell-debito">190,00</td>
                 </tr>
                 <tr>
                   <td>BASE DE CÁLCULO PIS/COFINS</td>
@@ -837,7 +1665,7 @@ a:hover{text-decoration:underline}
                   <td>BASE DE CÁLCULO CBS</td>
                   <td class="num">1.190,00</td>
                   <td>BASE DE CÁLCULO CBS</td>
-                  <td class="num" style="background-color: #ffff00;">310,00</td>
+                  <td class="num cell-debito">310,00</td>
                 </tr>
                 <tr>
                   <td>VLR ICMS</td>
@@ -861,7 +1689,7 @@ a:hover{text-decoration:underline}
         </article>
       </section>
   
-      <h3 class="section-title">🏢 Indústria e Serviços - Comparativos</h3>
+      <h3 class="section-title"><span class="emoji" aria-hidden="true">🏢</span> Indústria e Serviços - Comparativos</h3>
 
       <section class="map-grid">
         <article class="card comparativo">
@@ -1349,5 +2177,28 @@ a:hover{text-decoration:underline}
       </section>
   </section>
 </main>
+
+<script>
+  (function () {
+    const selectors = ['.card', '.table-wrapper', '.note', '.branch', '.legal .item'];
+    const applyNoBreak = () => {
+      selectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((element) => {
+          element.style.breakInside = 'avoid';
+          element.style.pageBreakInside = 'avoid';
+        });
+      });
+    };
+
+    window.addEventListener('beforeprint', () => {
+      applyNoBreak();
+      console.log('beforeprint: ajustes de quebra aplicados');
+    });
+
+    window.addEventListener('afterprint', () => {
+      console.log('afterprint: impressão concluída');
+    });
+  })();
+</script>
 </body>
 </html>
