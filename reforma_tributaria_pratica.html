@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reforma Tributária – Cálculos na Prática (LC 214/2025)</title>
+<style>
+:root{
+  --ink:#0f172a;--muted:#475569;--bg:#ffffff;--page:#f7fafc;--line:#e2e8f0;
+  --primary:#1d4ed8;--accent:#0ea5e9;--ok:#16a34a;--warn:#d97706;--danger:#dc2626;
+  --receita:#2c5282;--base:#2f855a;--fato:#c05621;--apuracao:#744210;--exemplos:#553c9a;--simples:#97266d;--comparativo:#c53030;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;color:var(--ink);background:var(--page);padding:24px}
+header{max-width:1200px;margin:0 auto 20px;padding:12px 16px 20px;border-bottom:3px solid var(--primary);text-align:center}
+header h1{font-size:1.9rem;color:var(--primary);letter-spacing:.2px;margin-bottom:6px}
+header p{color:var(--muted)}
+main{max-width:1200px;margin:0 auto}
+
+.center-node{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;padding:18px 22px;border-radius:14px;font-weight:800;box-shadow:0 8px 18px rgba(0,0,0,.12);margin:8px auto}
+.center-node .icon{font-size:22px}
+
+.map-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.card{background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 6px 14px rgba(2,6,23,.06);padding:18px;position:relative;overflow:visible}
+.card h2{display:flex;align-items:center;gap:10px;font-size:1.15rem;margin-bottom:10px}
+.card .icon{font-size:20px}
+.card ul{list-style:none;padding-left:0}
+.card li{padding-left:26px;margin:8px 0;position:relative}
+.card li::before{content:"";position:absolute;left:8px;top:.6em;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.65}
+
+.card.receita{border-left:6px solid var(--receita)}
+.card.base{border-left:6px solid var(--base)}
+.card.fato{border-left:6px solid var(--fato)}
+.card.apuracao{border-left:6px solid var(--apuracao)}
+.card.exemplos{border-left:6px solid var(--exemplos)}
+.card.simples{border-left:6px solid var(--simples)}
+.card.comparativo{border-left:6px solid var(--comparativo)}
+
+.note{margin-top:10px;border:1px dashed var(--line);background:#f8fafc;border-left:4px solid var(--primary);padding:10px 12px;border-radius:12px}
+.note strong{font-weight:700}
+
+.table-wrapper{overflow-x:auto;margin:12px 0}
+.table{width:100%;border-collapse:collapse;font-size:.94rem;margin:10px 0}
+.table th,.table td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.table th{background:var(--primary);color:#fff;font-weight:600}
+.table tr:nth-child(even){background:#f8fafc}
+.table .num{text-align:right;font-variant-numeric:tabular-nums}
+.table .center{text-align:center}
+
+.highlight{background:#fef3c7;padding:2px 6px;border-radius:4px;font-weight:600}
+.red{color:var(--danger)}
+.green{color:var(--ok)}
+.blue{color:var(--primary)}
+
+.section-title{margin:32px 0 16px;padding:12px 16px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;border-radius:12px;font-size:1.3rem;font-weight:700}
+
+@media print {
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  html, body { background:#fff !important; }
+  body { padding:0 !important; color:#111 !important; font-size:10.5pt; line-height:1.45; }
+  main { padding:0 !important; }
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; color:#111 !important; }
+  h1 { font-size:18pt; margin:10pt 0 6pt; }
+  h2 { font-size:14pt; margin:12pt 0 6pt; }
+  .map-grid { display: block !important; }
+  .card, .note { break-inside: avoid; page-break-inside: avoid; box-shadow:none !important; margin-bottom: 12pt; }
+  .table-wrapper { overflow-x: visible !important; break-inside: avoid; }
+  table { width:100% !important; border-collapse:collapse !important; margin:8pt 0 12pt !important; page-break-inside: avoid; }
+  th, td { border:1px solid #ddd !important; padding:4pt 6pt !important; vertical-align:top; font-size: 9pt; }
+  th { background:#f2f2f2 !important; color:#111 !important; }
+  .center-node { display:flex !important; width:fit-content !important; margin:8px auto 12px !important; background:#eef2ff !important; color:#111 !important; border:1px solid #c7d2fe !important; box-shadow:none !important; }
+  header { border-bottom:none !important; margin:0 !important; padding:0 !important; }
+  .section-title { break-before: page; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Reforma Tributária – Cálculos na Prática</h1>
+  <p>LC 214/2025 · Exemplos Práticos de Apuração CBS e IBS</p>
+</header>
+
+<main>
+  <div class="center-node"><span class="icon" aria-hidden="true">🧮</span><span>LC 214/2025 · Cálculo na Prática</span></div>
+
+  <section class="map-grid">
+    <article class="card receita">
+      <h2><span class="icon" aria-hidden="true">💰</span>Receita Bruta</h2>
+      <ul>
+        <li><strong>Todas as receitas serão tributadas</strong>, ampliando significativamente a base de incidência.</li>
+        <li>Reduz discussões sobre classificação entre bens ou serviços, unificando o tratamento tributário.</li>
+        <li>Aumenta as discussões sobre bens de consumo, especialmente imóveis e operações complexas.</li>
+        <li><strong>Legislação única</strong> para CBS e IBS, simplificando a conformidade fiscal.</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 4º a 7º (conceito de operação onerosa e base de cálculo).</div>
+    </article>
+
+    <article class="card simples">
+      <h2><span class="icon" aria-hidden="true">📊</span>Simples Nacional - Alteração</h2>
+      <ul>
+        <li><strong>Alteração na Lei 123/2006:</strong> modificação do conceito de receita bruta para o regime simplificado.</li>
+        <li><strong>Inclusão de outras receitas:</strong> agora considera-se receita bruta <em>todas as demais receitas da atividade ou objeto operacional da empresa</em>.</li>
+        <li><strong>Vigência desde 01/01/2025:</strong> as empresas do Simples Nacional devem atentar para o novo conceito ao calcular o faturamento.</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> Alteração da Lei Complementar nº 123/2006, vigente desde 01/01/2025.</div>
+    </article>
+
+    <article class="card base">
+      <h2><span class="icon" aria-hidden="true">📐</span>Base de Cálculo - Regra Geral</h2>
+      <p><strong>A base de cálculo é a receita bruta.</strong> Além do valor principal da operação, há <strong>acréscimos obrigatórios</strong> que devem integrar a base:</p>
+      <ul>
+        <li>Seguros, juros e demais importâncias recebidas ou debitadas;</li>
+        <li>Descontos e bonificações concedidas sob condição;</li>
+        <li>Valores cobrados por terceiros em nome do contribuinte;</li>
+        <li>Tributos incidentes sobre a operação (exceto IBS e CBS destacados);</li>
+        <li>Valores relativos a encargos e perdas (energia elétrica, gás, água, telecomunicações).</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, art. 5º (acréscimos à base de cálculo).</div>
+    </article>
+
+    <article class="card base">
+      <h2><span class="icon" aria-hidden="true">➖</span>Exclusões da Base de Cálculo</h2>
+      <p>Podem ser <strong>excluídos da base de cálculo</strong>:</p>
+      <ul>
+        <li>Descontos e bonificações <em>incondicionais</em> concedidos;</li>
+        <li>Valores relativos a devoluções e vendas canceladas;</li>
+        <li>IPI e Imposto de Exportação (quando couber);</li>
+        <li>ICMS devido por substituição tributária (durante a transição);</li>
+        <li>Valores repassados a terceiros (intermediação, consignação, franquia, administração de fundos);</li>
+        <li>Valores de IBS e CBS nas saídas;</li>
+        <li>Créditos presumidos de IPI, PIS/Cofins (até 2033).</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, art. 6º (exclusões da base de cálculo).</div>
+    </article>
+
+    <article class="card base">
+      <h2><span class="icon" aria-hidden="true">🔄</span>Fornecimento Simultâneo de Bens e Serviços</h2>
+      <p><strong>Quando há fornecimento simultâneo</strong> de bens e serviços <strong>sem especificação</strong> do valor de cada um, aplica-se a <span class="highlight">alíquota do fornecimento principal</span>.</p>
+      <p><strong>Exemplo - Fornecimentos Acessórios:</strong> serviço de manutenção com venda de peças. Se o <em>fornecimento principal for o serviço</em>, aplica-se a alíquota dos serviços para toda a operação.</p>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, art. 7º (fornecimento simultâneo).</div>
+    </article>
+  </section>
+
+  <h3 class="section-title">⚡ Fato Gerador e Apuração</h3>
+
+  <section class="map-grid">
+    <article class="card fato">
+      <h2><span class="icon" aria-hidden="true">📅</span>Fato Gerador = Faturamento</h2>
+      <p>O <strong>fato gerador de IBS e CBS</strong> ocorre no momento do <span class="highlight">faturamento</span>, diferentemente do ICMS que incide sobre a circulação da mercadoria.</p>
+      <p><strong>Importante:</strong> no IBS deve ser analisado o momento do faturamento, e não apenas a saída física do bem.</p>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th class="center">ICMS</th>
+              <th class="center">IBS/CBS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Momento da incidência</td>
+              <td class="center">Circulação da mercadoria</td>
+              <td class="center">Faturamento</td>
+            </tr>
+            <tr>
+              <td>Adiantamento (NF simples faturamento)</td>
+              <td class="center red">Não tributado</td>
+              <td class="center green">Tributado</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 8º e 9º (incidência e fato gerador).</div>
+    </article>
+
+    <article class="card fato">
+      <h2><span class="icon" aria-hidden="true">💵</span>Adiantamentos - Exemplo Prático</h2>
+      <p><strong>Adiantamentos são tributados</strong> no IBS e CBS, mas não no ICMS. Emite-se nota fiscal de simples faturamento no ato do recebimento.</p>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EXEMPLO ADIANTAMENTO:</strong></caption>
+          <thead>
+            <tr>
+              <th>PRÉ REFORMA</th>
+              <th class="num">%</th>
+              <th>PÓS REFORMA</th>
+              <th class="num">%</th>
+              <th>DIFERENÇA</th>
+              <th class="num"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ADIANTAMENTO</td>
+              <td class="num">1.000,00</td>
+              <td>ADIANTAMENTO</td>
+              <td class="num">500,00</td>
+              <td>VALOR DA OPERAÇÃO</td>
+              <td class="num">- 500,00</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO ICMS</td>
+              <td class="num">-</td>
+              <td>BASE DE CÁLCULO IBS</td>
+              <td class="num">500,00</td>
+              <td>BASE DE CÁLCULO IBS</td>
+              <td class="num">500,00</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO PIS/COFINS</td>
+              <td class="num">-</td>
+              <td>BASE DE CÁLCULO CBS</td>
+              <td class="num">500,00</td>
+              <td>BASE DE CÁLCULO CBS</td>
+              <td class="num">500,00</td>
+            </tr>
+            <tr>
+              <td>VLR ICMS</td>
+              <td class="num">-</td>
+              <td>VLR IBS</td>
+              <td class="num">92,50</td>
+              <td>VLR IBS</td>
+              <td class="num">92,50</td>
+            </tr>
+            <tr>
+              <td>VLR PIS/COFINS</td>
+              <td class="num">-</td>
+              <td>VLR CBS</td>
+              <td class="num">50,00</td>
+              <td>VLR CBS</td>
+              <td class="num">50,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="card apuracao">
+      <h2><span class="icon" aria-hidden="true">🧮</span>Apuração Mensal</h2>
+      <p>A apuração de IBS e CBS é <strong>mensal</strong>, com base no regime de competência. Os créditos são apropriados no mês da aquisição e os débitos no mês do faturamento.</p>
+      <p><strong>Exemplo:</strong> se uma empresa compra a prazo e vende a prazo, o crédito é registrado na compra e o débito na venda, independentemente do pagamento.</p>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EX1 COMPRA A VISTA, VENDA A PRAZO</strong></caption>
+          <thead>
+            <tr>
+              <th>VLR OPERAÇÃO</th>
+              <th class="num">AV</th>
+              <th class="num">30DD</th>
+              <th class="num">60DD</th>
+              <th class="num">90DD</th>
+              <th class="num">120DD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AQUISIÇÕES</td>
+              <td class="num">100.000,00</td>
+              <td class="num">100.000,00</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>CRÉDITOS IBS/CBS</td>
+              <td class="num">28.500,00</td>
+              <td class="num">28.500,00</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>VENDAS</td>
+              <td class="num">250.000,00</td>
+              <td class="num">-</td>
+              <td class="num">100.000,00</td>
+              <td class="num">50.000,00</td>
+              <td class="num">50.000,00</td>
+            </tr>
+            <tr>
+              <td>DÉBITOS IBS/CBS</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">28.500,00</td>
+              <td class="num">14.250,00</td>
+              <td class="num">14.250,00</td>
+            </tr>
+            <tr>
+              <td>SLD DEV/CRED</td>
+              <td class="num" style="background-color: #90ee90;">28.500,00</td>
+              <td class="num">-</td>
+              <td class="num" style="background-color: #ffff00;">14.250,00</td>
+              <td class="num" style="background-color: #ffff00;">14.250,00</td>
+              <td class="num" style="background-color: #ffff00;">14.250,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="card apuracao">
+      <h2><span class="icon" aria-hidden="true">⚖️</span>Créditos e Débitos</h2>
+      <p>O sistema de débitos e créditos visa a <strong>não cumulatividade plena</strong>, permitindo que o imposto pago na etapa anterior seja abatido na etapa seguinte.</p>
+      <p>O saldo devedor ou credor é apurado mensalmente, confrontando o total de débitos (saídas) com o total de créditos (entradas).</p>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EX2 – COMPRA A PRAZO, VENDA A PRAZO</strong></caption>
+          <thead>
+            <tr>
+              <th>VLR OPERAÇÃO</th>
+              <th class="num">AV</th>
+              <th class="num">30DD</th>
+              <th class="num">60DD</th>
+              <th class="num">90DD</th>
+              <th class="num">120DD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AQUISIÇÕES</td>
+              <td class="num">100.000,00</td>
+              <td class="num">-</td>
+              <td class="num">25.000,00</td>
+              <td class="num">25.000,00</td>
+              <td class="num">25.000,00</td>
+            </tr>
+            <tr>
+              <td>CRÉDITOS IBS/CBS</td>
+              <td class="num"></td>
+              <td class="num">-</td>
+              <td class="num">7.125,00</td>
+              <td class="num">7.125,00</td>
+              <td class="num">7.125,00</td>
+            </tr>
+            <tr>
+              <td>VENDAS</td>
+              <td class="num">250.000,00</td>
+              <td class="num">-</td>
+              <td class="num">100.000,00</td>
+              <td class="num">50.000,00</td>
+              <td class="num">50.000,00</td>
+            </tr>
+            <tr>
+              <td>DÉBITOS IBS/CBS</td>
+              <td class="num"></td>
+              <td class="num">-</td>
+              <td class="num">28.500,00</td>
+              <td class="num">14.250,00</td>
+              <td class="num">14.250,00</td>
+            </tr>
+            <tr>
+              <td>SLD DEV/CRED</td>
+              <td class="num"></td>
+              <td class="num">-</td>
+              <td class="num" style="background-color: #ffff00;">21.375,00</td>
+              <td class="num" style="background-color: #ffff00;">7.125,00</td>
+              <td class="num" style="background-color: #ffff00;">7.125,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EX3 AQUISIÇÃO A PRAZO E VENDA A VISTA</strong></caption>
+          <thead>
+            <tr>
+              <th>VLR OPERAÇÃO</th>
+              <th class="num">AV</th>
+              <th class="num">30DD</th>
+              <th class="num">60DD</th>
+              <th class="num">90DD</th>
+              <th class="num">120DD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AQUISIÇÕES</td>
+              <td class="num">100.000,00</td>
+              <td class="num">-</td>
+              <td class="num">25.000,00</td>
+              <td class="num">25.000,00</td>
+              <td class="num">25.000,00</td>
+            </tr>
+            <tr>
+              <td>CRÉDITOS IBS/CBS</td>
+              <td class="num"></td>
+              <td class="num">-</td>
+              <td class="num">7.125,00</td>
+              <td class="num">7.125,00</td>
+              <td class="num">7.125,00</td>
+            </tr>
+            <tr>
+              <td>VENDAS</td>
+              <td class="num">250.000,00</td>
+              <td class="num">250.000,00</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>DÉBITOS IBS/CBS</td>
+              <td class="num"></td>
+              <td class="num">71.250,00</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>SLD DEV/CRED</td>
+              <td class="num" style="background-color: #ffff00;">71.250,00</td>
+              <td class="num" style="background-color: #90ee90;">7.125,00</td>
+              <td class="num" style="background-color: #90ee90;">7.125,00</td>
+              <td class="num" style="background-color: #90ee90;">7.125,00</td>
+              <td class="num" style="background-color: #90ee90;">7.125,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+  
+  <h3 class="section-title">💡 Exemplos do Fato Gerador</h3>
+
+  <section class="map-grid">
+    <article class="card exemplos">
+      <h2><span class="icon" aria-hidden="true">💡</span>Cenários Adicionais</h2>
+      <p>Cenários para ilustrar a aplicação da reforma em diferentes situações.</p>
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EXEMPLO DO TRIBUTO PAGO DE ACORDO COM A MEDIÇÃO</strong></caption>
+          <thead>
+            <tr>
+              <th>PÓS REFORMA</th>
+              <th class="num">MÊS 1</th>
+              <th class="num">MÊS 2</th>
+              <th class="num">MÊS 3</th>
+              <th class="num">MÊS 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VLR TOTAL SERV</td>
+              <td class="num">100.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">10.000,00</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO IBS</td>
+              <td class="num">100.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">10.000,00</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO CBS</td>
+              <td class="num">100.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">30.000,00</td>
+              <td class="num">10.000,00</td>
+            </tr>
+            <tr>
+              <td>VLR IBS</td>
+              <td class="num">10.000,00</td>
+              <td class="num">3.000,00</td>
+              <td class="num">3.000,00</td>
+              <td class="num">1.000,00</td>
+            </tr>
+            <tr>
+              <td>VLR CBS</td>
+              <td class="num">18.500,00</td>
+              <td class="num">5.550,00</td>
+              <td class="num">5.550,00</td>
+              <td class="num">1.850,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EXEMPLO PRATICO – FATO GERADOR</strong></caption>
+          <thead>
+            <tr>
+              <th>PRÉ REFORMA</th>
+              <th class="num">%</th>
+              <th>PÓS REFORMA</th>
+              <th class="num">%</th>
+              <th>DIFERENÇA</th>
+              <th class="num">%</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VALOR DA OPERAÇÃO</td>
+              <td class="num">1.000,00</td>
+              <td>VALOR DA OPERAÇÃO</td>
+              <td class="num">1.000,00</td>
+              <td>VALOR DA OPERAÇÃO</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>MULTA</td>
+              <td class="num">120,00</td>
+              <td>MULTA</td>
+              <td class="num">120,00</td>
+              <td>MULTA</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>JUROS</td>
+              <td class="num">70,00</td>
+              <td>JUROS</td>
+              <td class="num">70,00</td>
+              <td>JUROS</td>
+              <td class="num">-</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO ICMS</td>
+              <td class="num">1.000,00</td>
+              <td>BASE DE CÁLCULO IBS</td>
+              <td class="num">1.190,00</td>
+              <td>BASE DE CÁLCULO IBS</td>
+              <td class="num" style="background-color: #ffff00;">190,00</td>
+            </tr>
+            <tr>
+              <td>BASE DE CÁLCULO PIS/COFINS</td>
+              <td class="num">880,00</td>
+              <td>BASE DE CÁLCULO CBS</td>
+              <td class="num">1.190,00</td>
+              <td>BASE DE CÁLCULO CBS</td>
+              <td class="num" style="background-color: #ffff00;">310,00</td>
+            </tr>
+            <tr>
+              <td>VLR ICMS</td>
+              <td class="num">120,00</td>
+              <td>VLR IBS</td>
+              <td class="num">220,15</td>
+              <td>VLR IBS</td>
+              <td class="num">100,15</td>
+            </tr>
+            <tr>
+              <td>VLR PIS/COFINS</td>
+              <td class="num">32,12</td>
+              <td>VLR CBS</td>
+              <td class="num">119,00</td>
+              <td>VLR CBS</td>
+              <td class="num">86,88</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+  
+  <h3 class="section-title">🏢 Indústria e Serviços - Comparativos</h3>
+
+  <section class="map-grid">
+    <article class="card comparativo">
+      <h2><span class="icon" aria-hidden="true">🏭</span>Indústria - Comparativo de Regimes</h2>
+      <p>Análise comparativa entre os regimes cumulativo, não cumulativo e a nova sistemática da reforma tributária para o setor industrial.</p>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>REGIME CUMULATIVO:</strong></caption>
+          <thead>
+            <tr>
+              <th>ATUAL</th>
+              <th class="num">CUM</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PIS</td>
+              <td class="num">0,65%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">65,00</td>
+              <td class="num">65,00</td>
+              <td class="num">0,65%</td>
+            </tr>
+            <tr>
+              <td>COFINS</td>
+              <td class="num">3,00%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">300,00</td>
+              <td class="num">300,00</td>
+              <td class="num">3,00%</td>
+            </tr>
+            <tr>
+              <td>ICMS</td>
+              <td class="num">18,00%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">1.260,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">1.800,00</td>
+              <td class="num">540,00</td>
+              <td class="num">5,40%</td>
+            </tr>
+            <tr>
+              <td>IPI</td>
+              <td class="num">5%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">350,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">500,00</td>
+              <td class="num">150,00</td>
+              <td class="num">1,50%</td>
+            </tr>
+            <tr>
+              <td><strong>26,65%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>1.055,00</strong></td>
+              <td class="num"><strong>10,55%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>REGIME NÃO CUMULATIVO:</strong></caption>
+          <thead>
+            <tr>
+              <th>ATUAL</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PIS</td>
+              <td class="num">1,65%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">115,50</td>
+              <td class="num">10.000,00</td>
+              <td class="num">165,00</td>
+              <td class="num">49,50</td>
+              <td class="num">0,50%</td>
+            </tr>
+            <tr>
+              <td>COFINS</td>
+              <td class="num">7,60%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">532,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">760,00</td>
+              <td class="num">228,00</td>
+              <td class="num">2,28%</td>
+            </tr>
+            <tr>
+              <td>ICMS</td>
+              <td class="num">18,00%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">1.260,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">1.800,00</td>
+              <td class="num">540,00</td>
+              <td class="num">5,40%</td>
+            </tr>
+            <tr>
+              <td>IPI</td>
+              <td class="num">5%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">350,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">500,00</td>
+              <td class="num">150,00</td>
+              <td class="num">1,50%</td>
+            </tr>
+            <tr>
+              <td><strong>32,25%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>967,50</strong></td>
+              <td class="num"><strong>9,68%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>REFORMA TRIBUTÁRIA:</strong></caption>
+          <thead>
+            <tr>
+              <th>REFORMA</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CBS</td>
+              <td class="num">10,00%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">700,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">1.000,00</td>
+              <td class="num">300,00</td>
+              <td class="num">3,00%</td>
+            </tr>
+            <tr>
+              <td>IBS</td>
+              <td class="num">18,50%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">1.295,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">1.850,00</td>
+              <td class="num">555,00</td>
+              <td class="num">5,55%</td>
+            </tr>
+            <tr>
+              <td><strong>93,00%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>855,00</strong></td>
+              <td class="num"><strong>8,55%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="card comparativo">
+      <h2><span class="icon" aria-hidden="true">🏢</span>Serviços - Comparativo de Regimes</h2>
+      <p>Análise comparativa entre os regimes cumulativo, não cumulativo e a nova sistemática da reforma tributária para o setor de serviços.</p>
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>REGIME CUMULATIVO:</strong></caption>
+          <thead>
+            <tr>
+              <th>ATUAL</th>
+              <th class="num">CUM</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PIS</td>
+              <td class="num">0,65%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">65,00</td>
+              <td class="num">65,00</td>
+              <td class="num">0,65%</td>
+            </tr>
+            <tr>
+              <td>COFINS</td>
+              <td class="num">3,00%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">300,00</td>
+              <td class="num">300,00</td>
+              <td class="num">3,00%</td>
+            </tr>
+            <tr>
+              <td>ISS</td>
+              <td class="num">5,00%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">500,00</td>
+              <td class="num">500,00</td>
+              <td class="num">5,00%</td>
+            </tr>
+            <tr>
+              <td><strong>8,65%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>865,00</strong></td>
+              <td class="num"><strong>8,65%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>NÃO CUMULATIVO</strong></caption>
+          <thead>
+            <tr>
+              <th>ATUAL</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PIS</td>
+              <td class="num">1,65%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">34,65</td>
+              <td class="num">10.000,00</td>
+              <td class="num">165,00</td>
+              <td class="num">130,35</td>
+              <td class="num">1,30%</td>
+            </tr>
+            <tr>
+              <td>COFINS</td>
+              <td class="num">7,60%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">159,60</td>
+              <td class="num">10.000,00</td>
+              <td class="num">760,00</td>
+              <td class="num">600,40</td>
+              <td class="num">6,00%</td>
+            </tr>
+            <tr>
+              <td>ISS</td>
+              <td class="num">5,00%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">500,00</td>
+              <td class="num">500,00</td>
+              <td class="num">5,00%</td>
+            </tr>
+            <tr>
+              <td><strong>14,25%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>1.230,75</strong></td>
+              <td class="num"><strong>12,31%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>REFORMA</strong></caption>
+          <thead>
+            <tr>
+              <th>REFORMA</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CBS</td>
+              <td class="num">10,00%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">210,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">700,00</td>
+              <td class="num">490,00</td>
+              <td class="num">4,90%</td>
+            </tr>
+            <tr>
+              <td>IBS</td>
+              <td class="num">18,50%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">777,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">1.295,00</td>
+              <td class="num">518,00</td>
+              <td class="num">5,18%</td>
+            </tr>
+            <tr>
+              <td><strong>28,50%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>1.008,00</strong></td>
+              <td class="num"><strong>10,08%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <h3 class="section-title">📊 Simples Nacional - Exemplos</h3>
+
+  <section class="map-grid">
+    <article class="card simples">
+      <h2><span class="icon" aria-hidden="true">🏢</span>Simples Nacional - Exemplo Prático</h2>
+      <p>Demonstração do cálculo no Simples Nacional, considerando a apuração "por dentro" e "por fora" do DAS.</p>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>EXEMPLO SIMPLES NACIONAL REFORMA TRIBUTARIA – RECOLHER POR DENTRO DO DAS</strong></caption>
+          <thead>
+            <tr>
+              <th>ATUAL</th>
+              <th class="num">CUM</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DAS</td>
+              <td class="num">5,22%</td>
+              <td class="num">-</td>
+              <td class="num">-</td>
+              <td class="num">10.000,00</td>
+              <td class="num">522,46</td>
+              <td class="num">522,46</td>
+              <td class="num">5,22%</td>
+            </tr>
+            <tr>
+              <td><strong>5,22%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>522,46</strong></td>
+              <td class="num"><strong>5,22%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>PÓS REFORMA</strong></caption>
+          <thead>
+            <tr>
+              <th>REFORMA (DAS)</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CBS</td>
+              <td class="num">1,63%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">-</td>
+              <td class="num">100.000,00</td>
+              <td class="num">1.634,56</td>
+              <td class="num">1.634,56</td>
+              <td class="num">1,63%</td>
+            </tr>
+            <tr>
+              <td>IBS</td>
+              <td class="num">3,59%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">-</td>
+              <td class="num">100.000,00</td>
+              <td class="num">3.590,06</td>
+              <td class="num">3.590,06</td>
+              <td class="num">3,59%</td>
+            </tr>
+            <tr>
+              <td><strong>5,22%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>5.224,62</strong></td>
+              <td class="num"><strong>5,22%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table">
+          <caption><strong>RECOLHIMENTO DE IBS E CBS POR FORA</strong></caption>
+          <thead>
+            <tr>
+              <th>REFORMA (FORA)</th>
+              <th class="num">NC</th>
+              <th class="num">AQUISIÇÕES</th>
+              <th class="num">CRÉDITO</th>
+              <th class="num">FATURAMENTO</th>
+              <th class="num">DÉBITO</th>
+              <th class="num">RECOLHER</th>
+              <th class="num">ALÍQ EFE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CBS</td>
+              <td class="num">10,00%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">700,00</td>
+              <td class="num">100.000,00</td>
+              <td class="num">10.000,00</td>
+              <td class="num">9.300,00</td>
+              <td class="num">9,30%</td>
+            </tr>
+            <tr>
+              <td>IBS</td>
+              <td class="num">18,50%</td>
+              <td class="num">7.000,00</td>
+              <td class="num">1.295,00</td>
+              <td class="num">100.000,00</td>
+              <td class="num">18.500,00</td>
+              <td class="num">17.205,00</td>
+              <td class="num">17,21%</td>
+            </tr>
+            <tr>
+              <td><strong>28,50%</strong></td>
+              <td class="num" colspan="6"><strong>TOTAL</strong></td>
+              <td class="num"><strong>26.505,00</strong></td>
+              <td class="num"><strong>26,51%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+  </section>
+
+</main>
+
+</body>
+</html>

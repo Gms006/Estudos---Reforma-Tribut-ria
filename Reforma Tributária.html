@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mapa Mental — Reforma Tributária (IVA dual: CBS/IBS)</title>
+<style>
+:root{
+  --ink:#0f172a;--muted:#475569;--bg:#ffffff;--page:#f7fafc;--line:#e2e8f0;
+  --primary:#1d4ed8;--accent:#0ea5e9;--ok:#16a34a;--warn:#d97706;--danger:#dc2626;
+  --visao:#2c5282;--principios:#2f855a;--cronograma:#c05621;--credito:#744210;--transicao:#553c9a;--simples:#97266d;--impactos:#c53030;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;color:var(--ink);background:var(--page);padding:24px}
+header{max-width:1200px;margin:0 auto 20px;padding:12px 16px 20px;border-bottom:3px solid var(--primary);text-align:center}
+header h1{font-size:1.9rem;color:var(--primary);letter-spacing:.2px;margin-bottom:6px}
+header p{color:var(--muted)}
+main{max-width:1200px;margin:0 auto}
+
+/* Nó central */
+.center-node{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--primary),#2c7be5);color:#fff;padding:18px 22px;border-radius:14px;font-weight:800;box-shadow:0 8px 18px rgba(0,0,0,.12);margin:8px auto}
+.center-node .icon{font-size:22px}
+
+/* Grade de cards */
+.map-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.card{background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:0 6px 14px rgba(2,6,23,.06);padding:18px;position:relative;overflow:visible}
+.card h2{display:flex;align-items:center;gap:10px;font-size:1.15rem;margin-bottom:10px}
+.card .icon{font-size:20px}
+.card ul{list-style:none;padding-left:0}
+.card li{padding-left:26px;margin:8px 0;position:relative}
+.card li::before{content:"";position:absolute;left:8px;top:.6em;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.65}
+
+/* Listas compactas */
+.list-compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 14px;margin-top:6px}
+.list-compact li{margin:2px 0;padding-left:18px;overflow-wrap:anywhere;hyphens:auto}
+.list-compact li::before{left:2px}
+.list-compact.two-cols{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+@media (max-width: 900px){
+  .list-compact.two-cols{grid-template-columns:1fr}
+}
+
+/* Listas corridas */
+.run-list{margin:6px 0 4px; font-size:0.96rem; line-height:1.5}
+.run-list span{white-space:normal;hyphens:auto;overflow-wrap:anywhere}
+.run-list .sep{margin:0 6px; color:#94a3b8}
+
+/* Bordas temáticas */
+.card.visao{border-left:6px solid var(--visao)}
+.card.principios{border-left:6px solid var(--principios)}
+.card.cronograma{border-left:6px solid var(--cronograma)}
+.card.credito{border-left:6px solid var(--credito)}
+.card.transicao{border-left:6px solid var(--transicao)}
+.card.simples{border-left:6px solid var(--simples)}
+.card.impactos{border-left:6px solid var(--impactos)}
+
+/* Quadro de nota */
+.note{margin-top:10px;border:1px dashed var(--line);background:#f8fafc;border-left:4px solid var(--primary);padding:10px 12px;border-radius:12px}
+.note strong{font-weight:700}
+
+/* Tabela */
+.table{width:100%;border-collapse:collapse;font-size:.94rem;margin:10px 0}
+.table th,.table td{border:1px solid var(--line);padding:8px 10px;text-align:center}
+.table th{background:var(--transicao);color:#fff}
+.table tr:nth-child(even){background:#f8fafc}
+
+/* Números */
+.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+
+/* Bases legais */
+.legal{margin-top:26px}
+.legal h3{font-size:1.25rem;color:var(--primary);margin:16px 0 10px}
+.legal .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.75rem;color:#fff;margin-left:6px}
+.pill.vigente{background:var(--ok)}
+.pill.reg{background:var(--warn)}
+.pill.pendente{background:var(--danger)}
+.legal .item{background:#fff;border:1px solid var(--line);border-left:5px solid var(--primary);border-radius:12px;padding:12px 14px;margin:12px 0}
+.legal .item h4{margin-bottom:6px}
+.legal .where{font-size:.9rem;color:var(--muted)}
+
+/* Mapa mental (ramificações) */
+.tree{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.branch{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.branch h5{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.badge{display:inline-block;font-size:.75rem;background:#eef2ff;color:#3730a3;padding:2px 8px;border-radius:999px;margin-right:6px}
+
+/* Checklist */
+.checklist{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.checklist li{list-style:none;margin:6px 0;padding-left:22px;position:relative}
+.checklist li::before{content:"✔";position:absolute;left:0;color:var(--ok)}
+
+/* ---------- PRINT A4 ---------- */
+@media print {
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  html, body { background:#fff !important; }
+  body { padding:0 !important; color:#111 !important; font-size:10.5pt; line-height:1.45; }
+  main { padding:0 !important; }
+
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; color:#111 !important; }
+  h1 { font-size:18pt; margin:10pt 0 6pt; }
+  h2 { font-size:14pt; margin:12pt 0 6pt; }
+  h3 { font-size:12pt; margin:10pt 0 6pt; }
+
+  .map-grid, .tree { display:grid !important; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)) !important; gap:16px !important; }
+  .card, .branch, .item, .note, .checklist, .table { break-inside: avoid; page-break-inside: avoid; box-shadow:none !important; }
+  .card { margin:10pt 0 !important; }
+
+  table { width:100% !important; border-collapse:collapse !important; margin:8pt 0 12pt !important; }
+  thead { display:table-header-group; } 
+  tfoot { display:table-footer-group; }
+  th, td { border:1px solid #ddd !important; padding:6pt 8pt !important; vertical-align:top; }
+  th { background:#f2f2f2 !important; color:#111 !important; text-align:center; }
+  tbody tr:nth-child(odd) td { background:#fafafa !important; }
+
+  a[href]::after { content:""; }
+  .center-node { display:flex !important; align-items:center !important; gap:10px !important; width:fit-content !important; margin:8px auto 12px !important; background:#eef2ff !important; color:#111 !important; border:1px solid #c7d2fe !important; box-shadow:none !important; padding:10px 14px !important; border-radius:14px !important; font-weight:700 !important; }
+  [style*="border-left:6px solid"] { border-left:3px solid #444 !important; }
+  ul, ol { margin:6pt 0 10pt 18pt; }
+  li { margin:2pt 0; }
+  header { border-bottom:none !important; margin:0 !important; padding:0 !important; }
+
+  /* —— Ajustes estruturais para a PLP caber na 3ª página —— */
+  .legal { break-inside: avoid; }
+  .legal .item { break-inside: avoid; }
+  /* Inicia toda a seção de ramificações (EC/LC/PLP) no topo de uma nova página */
+  .tree.page-3 { page-break-before: always; }
+  /* Mantém cada bloco (EC, LC e PLP) coeso na mesma página */
+  .branch { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mapa Mental — Reforma Tributária</h1>
+  <p>IVA Dual: CBS (Federal) e IBS (Estadual/Municipal)</p>
+</header>
+
+<main>
+  <div class="center-node"><span class="icon" aria-hidden="true">🧠</span><span>Reforma Tributária · IVA Dual (CBS/IBS)</span></div>
+
+  <section class="map-grid">
+    <article class="card visao">
+      <h2><span class="icon" aria-hidden="true">🔎</span>Visão Geral</h2>
+      <ul>
+        <li><strong>IVA Dual</strong> corresponde ao total dos tributos CBS e IBS.</li>
+        <li><strong>CBS (federal)</strong> substitui PIS/Cofins.</li>
+        <li><strong>IBS (estadual/municipal)</strong> substitui ICMS e ISS.</li>
+        <li><strong>Extrato fiscal</strong>: controle de créditos e débitos por operação.</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> EC 132/2023, arts. 8º e 9º; LC 214/2025, parte geral.</div>
+    </article>
+
+    <article class="card principios">
+      <h2><span class="icon" aria-hidden="true">⚖️</span>Princípios</h2>
+      <ul>
+        <li>Base ampla de incidência.</li>
+        <li>Não cumulatividade por <em>crédito financeiro</em>.</li>
+        <li>Tributação no destino (tributo destinado no local de consumo).</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> EC 132/2023 (arts. 8º–9º); LC 214/2025 (crédito, obrigações acessórias).</div>
+    </article>
+
+    <article class="card cronograma">
+      <h2><span class="icon" aria-hidden="true">🗓️</span>Cronograma</h2>
+      <ul>
+        <li><strong>2026</strong> · ano-teste (campos CBS 0,9% e IBS 0,1%).</li>
+        <li><strong>2027→2033</strong> · implantação, convivência e extinção de ICMS/ISS.</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025 (transição e convivência).</div>
+    </article>
+
+    <article class="card credito">
+      <h2><span class="icon" aria-hidden="true">💳</span>Crédito Financeiro</h2>
+      <p><strong>Não cumulativo</strong>: crédito nas entradas, débito nas saídas. O <strong>crédito só fica disponível</strong> após a <u>comprovação do recolhimento</u> do tributo pelo fornecedor (ou via <em>Split Payment</em>).</p>
+      <ul class="list-compact two-cols">
+        <li><strong>Exemplo — crédito normal:</strong> NF emitida em <u>jan</u> e tributo pago em <u>fev</u> → o crédito só pode ser apropriado em <u>fev</u> (mês do recolhimento).</li>
+        <li><strong>Exemplo — Split Payment:</strong> NF de R$ 100.000 com alíquota de 24% → no pagamento, R$ 76.000 vão ao fornecedor e R$ 24.000 vão direto ao Fisco; o crédito fica respaldado <u>no ato do pagamento</u>.</li>
+      </ul>
+      <div class="note foot"><strong>Base legal:</strong> LC 214/2025 (regras de crédito, compensação e mecanismos de cobrança).</div>
+    </article>
+
+    <article class="card" style="border-left:6px solid #0ea5e9">
+      <h2><span class="icon" aria-hidden="true">📉</span>Redução de 30% — IVA Dual</h2>
+      <p class="run-list">
+        <span>I – administradores</span><span class="sep">·</span>
+        <span>II – advogados</span><span class="sep">·</span>
+        <span>III – arquitetos e urbanistas</span><span class="sep">·</span>
+        <span>IV – assistentes sociais</span><span class="sep">·</span>
+        <span>V – bibliotecários</span><span class="sep">·</span>
+        <span>VI – biólogos</span><span class="sep">·</span>
+        <span>VII – contabilistas</span><span class="sep">·</span>
+        <span>VIII – economistas</span><span class="sep">·</span>
+        <span>IX – economistas domésticos</span><span class="sep">·</span>
+        <span>X – profissionais de educação física</span><span class="sep">·</span>
+        <span>XI – engenheiros e agrônomos</span><span class="sep">·</span>
+        <span>XII – estatísticos</span><span class="sep">·</span>
+        <span>XIII – médicos veterinários e zootecnistas</span><span class="sep">·</span>
+        <span>XIV – museólogos</span><span class="sep">·</span>
+        <span>XV – químicos</span><span class="sep">·</span>
+        <span>XVI – profissionais de relações públicas</span><span class="sep">·</span>
+        <span>XVII – técnicos industriais</span><span class="sep">·</span>
+        <span>XVIII – técnicos agrícolas</span>
+      </p>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, art. 127.</div>
+    </article>
+
+    <article class="card" style="border-left:6px solid #10b981">
+      <h2><span class="icon" aria-hidden="true">🟩</span>Redução de 60% — IVA Dual</h2>
+      <p class="run-list">
+        <span>I – serviços de educação</span><span class="sep">·</span>
+        <span>II – serviços de saúde</span><span class="sep">·</span>
+        <span>III – dispositivos médicos</span><span class="sep">·</span>
+        <span>IV – dispositivos de acessibilidade para PCD</span><span class="sep">·</span>
+        <span>V – medicamentos</span><span class="sep">·</span>
+        <span>VI – alimentos destinados ao consumo humano</span><span class="sep">·</span>
+        <span>VII – higiene pessoal e limpeza (baixa renda)</span><span class="sep">·</span>
+        <span>VIII – produtos agropecuários, aquícolas, pesqueiros, florestais e extrativistas vegetais <em>in natura</em></span><span class="sep">·</span>
+        <span>IX – insumos agropecuários e aquícolas</span><span class="sep">·</span>
+        <span>X – produções artísticas, culturais, de eventos, jornalísticas e audiovisuais (nacionais)</span><span class="sep">·</span>
+        <span>XI – comunicação institucional</span><span class="sep">·</span>
+        <span>XII – atividades desportivas</span><span class="sep">·</span>
+        <span>XIII – bens/serviços ligados à soberania e segurança nacional, segurança da informação e cibernética</span>
+      </p>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 128 a 142.</div>
+    </article>
+
+    <article class="card" style="border-left:6px solid #6366f1">
+      <h2><span class="icon" aria-hidden="true">🅾️</span>Alíquota Zero — IVA Dual</h2>
+      <ul class="list-compact two-cols">
+        <li>I – dispositivos médicos</li>
+        <li>II – dispositivos de acessibilidade para PCD</li>
+        <li>III – medicamentos</li>
+        <li>IV – produtos de cuidados básicos à saúde menstrual</li>
+        <li>V – produtos hortícolas, frutas e ovos</li>
+        <li>VI – automóveis de passageiros para PCD ou TEA</li>
+        <li>VII – automóveis de passageiros para táxi (motoristas profissionais)</li>
+        <li>VIII – serviços prestados por ICT sem fins lucrativos</li>
+      </ul>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025, arts. 143 a 171.</div>
+    </article>
+
+    <article class="card impactos">
+      <h2><span class="icon" aria-hidden="true">🚀</span>Impactos e Providências (2026)</h2>
+      <ul>
+        <li><strong>NF-e / NFS-e (ano-teste 2026)</strong>: exibir campos de <strong>CBS 0,9%</strong> e <strong>IBS 0,1%</strong> nas notas; ajustar regras de destaque em vendas, devoluções e estornos; revisar códigos/parametrizações equivalentes.</li>
+        <li><strong>Sistema Fiscal & SPED CBS/IBS</strong>: criar tributos CBS/IBS, bases e apurações; habilitar o <em>extrato de créditos/débitos</em> e rotinas de conciliação; preparar integração para o leiaute do <strong>SPED CBS/IBS</strong> assim que publicado.</li>
+        <li><strong>SPED específico para CBS/IBS</strong>: será implementado um sistema de escrituração digital específico para os novos tributos, conforme instrução normativa a ser publicada pela RFB.</li>
+        <li><strong>Ano-teste 2026 — sem desembolso</strong>: <u>IBS e CBS não serão devidos</u>, mas <u>devem ser escriturados</u> e informados no <strong>SPED</strong> corretamente.</li>
+      </ul>
+    </article>
+
+    <article class="card transicao">
+      <h2><span class="icon" aria-hidden="true">🔄</span>Transição ICMS/ISS</h2>
+      <table class="table" aria-label="Transição para IBS">
+        <caption>Transição ICMS/ISS → IBS (2029–2033)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Ano</th>
+            <th scope="col">IBS na arrecadação</th>
+            <th scope="col">ICMS/ISS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">2029</td><td class="num">10%</td><td class="num">90%</td></tr>
+          <tr><td class="num">2030</td><td class="num">20%</td><td class="num">80%</td></tr>
+          <tr><td class="num">2031</td><td class="num">30%</td><td class="num">70%</td></tr>
+          <tr><td class="num">2032</td><td class="num">40%</td><td class="num">60%</td></tr>
+          <tr><td class="num">2033</td><td class="num">100%</td><td class="num">0%</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><strong>Base legal:</strong> LC 214/2025 (cronograma de repartição e regras de convivência).</div>
+    </article>
+  </section>
+
+  <section class="legal no-link-print" aria-label="Bases Legais">
+    <h3>Bases Legais (Atualizadas · em 20/10/2025)</h3>
+
+    <article class="item">
+      <h4>Emenda Constitucional nº 132/2023 <span class="pill vigente">VIGENTE</span></h4>
+      <p>Fundamentos do IVA dual (CBS/IBS), Cesta Básica e regimes diferenciados (arts. 8º–9º).</p>
+      <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
+    </article>
+
+    <article class="item">
+      <h4>Lei Complementar nº 214/2025 — Lei Geral do IBS/CBS <span class="pill vigente">VIGENTE</span></h4>
+      <p>Institui IBS, CBS e IS; regras de não cumulatividade; regimes diferenciados; transição.</p>
+      <p class="where"><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm" target="_blank" rel="noopener">Fonte oficial · Planalto</a></p>
+    </article>
+
+    <article class="item">
+      <h4>PLP nº 108/2024 — Comitê Gestor do IBS <span class="pill pendente">PENDENTE DE APROVAÇÃO</span></h4>
+      <p>Cria o Comitê Gestor do IBS; aprovado no Senado em 30/09/2025; aguarda a Câmara.</p>
+      <p class="where"><a href="https://www.gov.br/fazenda/pt-br/assuntos/noticias/2025/outubro/projeto-de-lei-que-cria-o-comite-gestor-do-imposto-sobre-bens-e-servicos-e-aprovado-no-plenario-do-senado" target="_blank" rel="noopener">Ministério da Fazenda (notícia oficial)</a></p>
+    </article>
+  </section>
+
+  <!-- Inicia a seção das ramificações (EC/LC/PLP) no topo de nova página para caber junta na 3ª página -->
+  <section class="tree page-3" aria-label="Mapa mental visual — Onde encontrar e quando aplicar">
+    <article class="branch">
+      <h5><span class="badge">VIGENTE</span>📜 EC 132/2023</h5>
+      <ul>
+        <li>Cria o modelo do <strong>IVA Dual</strong> e define os <strong>princípios constitucionais</strong> (base ampla, não-cumulatividade, destino) e as <strong>linhas gerais</strong> de regimes (cesta básica, reduções e alíquota zero).</li>
+      </ul>
+    </article>
+
+    <article class="branch">
+      <h5><span class="badge">VIGENTE</span>📘 LC 214/2025</h5>
+      <ul>
+        <li><strong>Regulamenta</strong> o modelo constitucional: institui <strong>IBS/CBS</strong>, detalha <strong>crédito financeiro</strong> e regras operacionais, define <strong>regimes diferenciados</strong> e a <strong>transição/convivência</strong> com ICMS/ISS.</li>
+      </ul>
+    </article>
+
+    <article class="branch">
+      <h5><span class="badge">PENDENTE</span>🧭 PLP 108/2024</h5>
+      <ul>
+        <li>Institui o <strong>Comitê Gestor do IBS</strong>, definindo <strong>governança, competências e operação</strong> do imposto (arrecadação, distribuição e fiscalização).</li>
+      </ul>
+    </article>
+  </section>
+</main>
+</body>
+</html>
